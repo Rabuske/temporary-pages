@@ -1,0 +1,1153 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>England & Iceland 2026</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --london: #2e7d32;
+    --london-light: #e8f5e9;
+    --london-mid: #c8e6c9;
+    --iceland: #1565c0;
+    --iceland-light: #e3f2fd;
+    --iceland-mid: #bbdefb;
+    --travel: #6a1b9a;
+    --travel-light: #f3e5f5;
+    --warn: #e65100;
+    --warn-light: #fff3e0;
+    --tag-bg: #f5f5f5;
+    --text: #212121;
+    --subtext: #555;
+    --border: #ddd;
+    --white: #fff;
+    --radius: 12px;
+    --shadow: 0 2px 8px rgba(0,0,0,0.10);
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #f0f4f8;
+    color: var(--text);
+    font-size: 15px;
+    line-height: 1.5;
+  }
+
+  /* HEADER */
+  .hero {
+    background: linear-gradient(135deg, #1a3a5c 0%, #1565c0 50%, #2e7d32 100%);
+    color: white;
+    padding: 32px 20px 24px;
+    text-align: center;
+  }
+  .hero h1 { font-size: 24px; font-weight: 700; margin-bottom: 4px; }
+  .hero p { font-size: 14px; opacity: 0.85; }
+
+  /* NAV TABS */
+  .tabs {
+    display: flex;
+    background: #fff;
+    border-bottom: 2px solid var(--border);
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab-btn {
+    flex: 0 0 auto;
+    padding: 12px 16px;
+    border: none;
+    background: none;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--subtext);
+    cursor: pointer;
+    white-space: nowrap;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s;
+  }
+  .tab-btn.active { color: var(--iceland); border-bottom-color: var(--iceland); }
+  .tab-btn.london { }
+  .tab-btn.london.active { color: var(--london); border-bottom-color: var(--london); }
+  .tab-btn.travel.active { color: var(--travel); border-bottom-color: var(--travel); }
+
+  /* SECTIONS */
+  .section { display: none; padding: 16px; max-width: 600px; margin: 0 auto; }
+  .section.active { display: block; }
+
+  /* FLIGHT TABLE */
+  .flights-table { width: 100%; border-collapse: collapse; background: white; border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); }
+  .flights-table th { background: var(--travel); color: white; padding: 10px 12px; text-align: left; font-size: 13px; }
+  .flights-table td { padding: 10px 12px; border-bottom: 1px solid var(--border); font-size: 13px; }
+  .flights-table tr:last-child td { border-bottom: none; }
+  .flights-table tr:nth-child(even) td { background: var(--travel-light); }
+
+  /* DAY CARD */
+  .day-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    margin-bottom: 20px;
+    overflow: hidden;
+  }
+  .day-header {
+    padding: 14px 16px 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    cursor: pointer;
+    user-select: none;
+  }
+  .day-header .left { flex: 1; }
+  .day-number { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; opacity: 0.7; margin-bottom: 2px; }
+  .day-title { font-size: 16px; font-weight: 700; }
+  .day-subtitle { font-size: 12px; margin-top: 2px; opacity: 0.75; }
+  .chevron { font-size: 18px; margin-left: 8px; transition: transform 0.25s; flex-shrink: 0; margin-top: 2px; }
+  .day-card.open .chevron { transform: rotate(180deg); }
+
+  /* Color themes per day type */
+  .day-card.london .day-header { background: var(--london-light); border-left: 4px solid var(--london); }
+  .day-card.iceland .day-header { background: var(--iceland-light); border-left: 4px solid var(--iceland); }
+  .day-card.travel .day-header { background: var(--travel-light); border-left: 4px solid var(--travel); }
+
+  .day-body { display: none; border-top: 1px solid var(--border); }
+  .day-card.open .day-body { display: block; }
+
+  /* TABS INSIDE CARD */
+  .inner-tabs { display: flex; background: #fafafa; border-bottom: 1px solid var(--border); }
+  .inner-tab {
+    flex: 1;
+    padding: 10px 8px;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--subtext);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+  }
+  .day-card.london .inner-tab.active { color: var(--london); border-bottom-color: var(--london); }
+  .day-card.iceland .inner-tab.active { color: var(--iceland); border-bottom-color: var(--iceland); }
+  .day-card.travel .inner-tab.active { color: var(--travel); border-bottom-color: var(--travel); }
+
+  .inner-panel { display: none; padding: 14px 16px; }
+  .inner-panel.active { display: block; }
+
+  /* ACTIVITIES */
+  .time-block { margin-bottom: 14px; }
+  .time-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    display: inline-block;
+  }
+  .london .time-label { background: var(--london-mid); color: var(--london); }
+  .iceland .time-label { background: var(--iceland-mid); color: var(--iceland); }
+  .travel .time-label { background: #e1bee7; color: var(--travel); }
+
+  .activity { display: flex; gap: 10px; padding: 8px 0; border-bottom: 1px solid #f0f0f0; }
+  .activity:last-child { border-bottom: none; }
+  .activity-icon { font-size: 18px; flex-shrink: 0; width: 24px; text-align: center; }
+  .activity-content { flex: 1; }
+  .activity-name { font-weight: 600; font-size: 14px; }
+  .activity-detail { font-size: 12px; color: var(--subtext); margin-top: 2px; }
+  .tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-top: 3px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+  }
+  .tag-free { background: #e8f5e9; color: var(--london); }
+  .tag-book { background: #ffecb3; color: #e65100; }
+  .tag-fixed { background: #fce4ec; color: #c62828; }
+  .tag-tip { background: #e3f2fd; color: var(--iceland); }
+  .tag-optional { background: #f3e5f5; color: var(--travel); }
+
+  /* WARNING BOX */
+  .warn-box {
+    background: var(--warn-light);
+    border-left: 4px solid var(--warn);
+    border-radius: 8px;
+    padding: 10px 12px;
+    margin-bottom: 12px;
+    font-size: 13px;
+    color: #bf360c;
+  }
+  .warn-box strong { display: block; margin-bottom: 2px; }
+
+  /* INFO BOX */
+  .info-box {
+    background: var(--iceland-light);
+    border-left: 4px solid var(--iceland);
+    border-radius: 8px;
+    padding: 10px 12px;
+    margin-bottom: 12px;
+    font-size: 13px;
+    color: #0d47a1;
+  }
+
+  .tip-box {
+    background: var(--london-light);
+    border-left: 4px solid var(--london);
+    border-radius: 8px;
+    padding: 10px 12px;
+    margin-bottom: 12px;
+    font-size: 13px;
+    color: #1b5e20;
+  }
+
+  /* TODO LIST */
+  .todo-list { list-style: none; }
+  .todo-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 13px;
+  }
+  .todo-item:last-child { border-bottom: none; }
+  .todo-checkbox {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid var(--border);
+    flex-shrink: 0;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-top: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .todo-checkbox.checked { background: var(--london); border-color: var(--london); color: white; font-size: 12px; }
+  .iceland .todo-checkbox.checked { background: var(--iceland); border-color: var(--iceland); }
+  .travel .todo-checkbox.checked { background: var(--travel); border-color: var(--travel); }
+  .todo-text { flex: 1; }
+  .todo-text.done { text-decoration: line-through; color: var(--subtext); }
+  .todo-urgency { font-size: 10px; font-weight: 700; padding: 2px 5px; border-radius: 3px; flex-shrink: 0; margin-top: 2px; }
+  .urgency-now { background: #ffcdd2; color: #b71c1c; }
+  .urgency-soon { background: #fff9c4; color: #f57f17; }
+  .urgency-before { background: #e8f5e9; color: #2e7d32; }
+
+  /* HOTEL BADGE */
+  .hotel-badge {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #fafafa;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 12px;
+    margin-bottom: 14px;
+  }
+  .hotel-icon { font-size: 22px; }
+  .hotel-info { flex: 1; }
+  .hotel-name { font-weight: 700; font-size: 14px; }
+  .hotel-dates { font-size: 12px; color: var(--subtext); }
+
+  /* DRIVE SUMMARY */
+  .drive-summary {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 14px;
+  }
+  .drive-chip {
+    background: var(--iceland-light);
+    color: var(--iceland);
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  /* OVERVIEW TABLE */
+  .overview-table { width: 100%; border-collapse: collapse; background: white; border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); margin-bottom: 20px; }
+  .overview-table th { padding: 10px 12px; font-size: 12px; text-align: left; }
+  .overview-table td { padding: 10px 12px; border-bottom: 1px solid var(--border); font-size: 13px; }
+  .overview-table tr:last-child td { border-bottom: none; }
+  .th-london { background: var(--london); color: white; }
+  .th-iceland { background: var(--iceland); color: white; }
+  .td-london { background: var(--london-light); }
+  .td-iceland { background: var(--iceland-light); }
+  .td-travel { background: var(--travel-light); }
+
+  /* SECTION HEADER */
+  .section-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--subtext);
+    padding: 6px 0 10px;
+  }
+  .flag { margin-right: 4px; }
+
+  /* CIRCUIT TABLE */
+  .circuit-table { width: 100%; border-collapse: collapse; background: white; border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); margin-bottom: 20px; font-size: 12px; }
+  .circuit-table th { background: var(--iceland); color: white; padding: 10px 10px; text-align: left; }
+  .circuit-table td { padding: 9px 10px; border-bottom: 1px solid var(--border); }
+  .circuit-table tr:last-child td { border-bottom: none; }
+  .circuit-table tr:nth-child(even) td { background: var(--iceland-light); }
+
+  /* RESERVES CARD */
+  .reserves-card { background: white; border-radius: var(--radius); box-shadow: var(--shadow); margin-bottom: 20px; overflow: hidden; }
+  .reserves-header { padding: 12px 16px; font-weight: 700; font-size: 14px; }
+  .reserves-header.london-h { background: var(--london-light); color: var(--london); }
+  .reserves-header.iceland-h { background: var(--iceland-light); color: var(--iceland); }
+  .reserve-item { padding: 10px 16px; border-bottom: 1px solid var(--border); font-size: 13px; display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
+  .reserve-item:last-child { border-bottom: none; }
+  .reserve-name { font-weight: 600; flex: 1; }
+  .reserve-note { font-size: 12px; color: var(--subtext); margin-top: 2px; }
+
+  /* TIPS SECTION */
+  .tip-item { display: flex; gap: 10px; padding: 10px 0; border-bottom: 1px solid #f0f0f0; font-size: 13px; }
+  .tip-item:last-child { border-bottom: none; }
+  .tip-item .icon { font-size: 18px; flex-shrink: 0; }
+
+  /* SCROLLTOP */
+  #scrollTop {
+    position: fixed; bottom: 24px; right: 20px;
+    background: var(--iceland); color: white;
+    border: none; border-radius: 50%;
+    width: 44px; height: 44px;
+    font-size: 20px; cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    display: none;
+    z-index: 200;
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>🇬🇧 England & Iceland 🇮🇸</h1>
+  <p>23 de Outubro – 6 de Novembro de 2026</p>
+</div>
+
+<div class="tabs" id="mainTabs">
+  <button class="tab-btn travel active">Visão Geral</button>
+  <button class="tab-btn london">🇬🇧 Londres I</button>
+  <button class="tab-btn">🇮🇸 Islândia</button>
+  <button class="tab-btn london">🇬🇧 Londres II</button>
+  <button class="tab-btn">📋 Reservas</button>
+  <button class="tab-btn">💡 Dicas</button>
+</div>
+
+<!-- ===================== OVERVIEW ===================== -->
+<div id="overview" class="section active">
+  <p class="section-label">Resumo da Viagem</p>
+
+  <table class="flights-table" style="margin-bottom:20px">
+    <tr><th colspan="3" style="background:var(--travel)">✈️ Voos</th></tr>
+    <tr><td><strong>POA → GRU</strong></td><td>23 Out</td><td>Latam</td></tr>
+    <tr><td><strong>GRU → LHR</strong></td><td>23 Out 15h30 → 24 Out 06h50</td><td>BA0246</td></tr>
+    <tr><td><strong>LHR → KEF</strong></td><td>28 Out 07h30 → 10h50</td><td>BA800</td></tr>
+    <tr><td><strong>KEF → LHR</strong></td><td>4 Nov 11h50 → 15h00</td><td>BA801</td></tr>
+    <tr><td><strong>LHR → GRU</strong></td><td>6 Nov 21h15 → 7 Nov 06h00</td><td>BA0246</td></tr>
+    <tr><td><strong>GRU → POA</strong></td><td>7 Nov</td><td>Latam</td></tr>
+  </table>
+
+  <p class="section-label">Hotéis</p>
+  <table class="overview-table">
+    <tr><th class="th-london">Noites</th><th class="th-london">Hotel</th><th class="th-london">Local</th></tr>
+    <tr><td class="td-london">24–28 Out (4n)</td><td>Pembridge Palace Hotel</td><td>Notting Hill</td></tr>
+    <tr><td class="td-iceland">28–29 Out (1n)</td><td>Center Hotels Laugavegur</td><td>Reykjavik</td></tr>
+    <tr><td class="td-iceland">29–30 Out (1n)</td><td>Hótel Vesturland</td><td>Borgarnes</td></tr>
+    <tr><td class="td-iceland">30–31 Out (1n)</td><td>Centrum Hotel</td><td>Akureyri</td></tr>
+    <tr><td class="td-iceland">31 Out–1 Nov (1n)</td><td>Hérað Berjaya</td><td>Egilsstaðir</td></tr>
+    <tr><td class="td-iceland">1–2 Nov (1n)</td><td>Höfn Berjaya</td><td>Höfn</td></tr>
+    <tr><td class="td-iceland">2–3 Nov (1n)</td><td>Hotel Katla</td><td>Vík</td></tr>
+    <tr><td class="td-iceland">3–4 Nov (1n)</td><td>Hotel Lotus</td><td>Reykjavik</td></tr>
+    <tr><td class="td-london">4–6 Nov (2n)</td><td>Park Grand Paddington Court</td><td>Paddington</td></tr>
+  </table>
+
+  <p class="section-label">Circuito Islândia — Distâncias</p>
+  <table class="circuit-table">
+    <tr><th>Trecho</th><th>Km</th><th>Tempo</th></tr>
+    <tr><td>Reykjavik → Golden Circle → Borgarnes</td><td>~297 km</td><td>~6h c/ paradas</td></tr>
+    <tr><td>Borgarnes → Akureyri</td><td>~313 km</td><td>~5h c/ paradas</td></tr>
+    <tr><td>Akureyri → Egilsstaðir</td><td>~247 km</td><td>~4h c/ paradas</td></tr>
+    <tr><td>Egilsstaðir → Höfn</td><td>~185 km + desvio</td><td>~4h c/ desvio</td></tr>
+    <tr><td>Höfn → Vík</td><td>~270 km</td><td>~4h c/ paradas</td></tr>
+    <tr><td>Vík → Reykjavik</td><td>~187 km</td><td>~2h30 c/ paradas</td></tr>
+  </table>
+
+  <div class="warn-box">
+    <strong>⚠️ Alertas Importantes</strong>
+    28 Out: voo LHR→KEF às 07h30 — sair do hotel às 04h30.<br>
+    3 Nov: Ice Cave às 10h00 — reserva confirmada.<br>
+    4 Nov: voo KEF→LHR às 11h50 — sair do hotel às 09h30.
+  </div>
+</div>
+
+<!-- ===================== LONDON LEG 1 ===================== -->
+<div id="london1" class="section">
+  <p class="section-label">🇬🇧 Londres — 1ª Etapa (24–27 Out)</p>
+  <div class="hotel-badge"><span class="hotel-icon">🏨</span><div class="hotel-info"><div class="hotel-name">Pembridge Palace Hotel</div><div class="hotel-dates">Check-in: 24 Out (manhã) · Check-out: 28 Out ~04h30</div></div></div>
+
+  <!-- DAY 1 -->
+  <div class="day-card london" id="card-d1">
+    <div class="day-header">
+      <div class="left">
+        <div class="day-number">Dia 1 · Sábado</div>
+        <div class="day-title">Chegada — Notting Hill</div>
+        <div class="day-subtitle">24 de Outubro · Arrive LHR 06h50</div>
+      </div>
+      <span class="chevron">▾</span>
+    </div>
+    <div class="day-body">
+      <div class="inner-tabs">
+        <div class="inner-tab active" data-panel="d1-prog">Programa</div>
+        <div class="inner-tab" data-panel="d1-todo">✅ To-do</div>
+      </div>
+      <div id="d1-prog" class="inner-panel active">
+        <div class="warn-box"><strong>💤 Dia leve — jet lag!</strong>Chegada com voo noturno. Fique na região do hotel.</div>
+        <div class="time-block">
+          <span class="time-label">Manhã</span>
+          <div class="activity"><span class="activity-icon">🏨</span><div class="activity-content"><div class="activity-name">Check-in Pembridge Palace</div><div class="activity-detail">Pode não ter quarto disponível cedo — deixe as malas e vá explorar</div></div></div>
+          <div class="activity"><span class="activity-icon">🛍️</span><div class="activity-content"><div class="activity-name">Portobello Road Market</div><div class="activity-detail">5 min a pé do hotel · só às SÁBADOS · antigos, comida, moda<br><span class="tag tag-tip">Só aos sábados — não perca!</span></div></div></div>
+          <div class="activity"><span class="activity-icon">🏘️</span><div class="activity-content"><div class="activity-name">Passeio por Notting Hill</div><div class="activity-detail">Casinhas coloridas, cafés charmosos, ruas fotogênicas</div></div></div>
+        </div>
+        <div class="time-block">
+          <span class="time-label">Tarde</span>
+          <div class="activity"><span class="activity-icon">😴</span><div class="activity-content"><div class="activity-name">Descanso / recuperação do jet lag</div><div class="activity-detail">Quarto já disponível — aproveite para repousar</div></div></div>
+        </div>
+        <div class="time-block">
+          <span class="time-label">Noite</span>
+          <div class="activity"><span class="activity-icon">🌳</span><div class="activity-content"><div class="activity-name">Hyde Park</div><div class="activity-detail">Passeio leve próximo ao hotel</div></div></div>
+          <div class="activity"><span class="activity-icon">🍺</span><div class="activity-content"><div class="activity-name">Jantar em pub de Notting Hill</div><div class="activity-detail">Fish & chips, cerveja local</div></div></div>
+        </div>
+      </div>
+      <div id="d1-todo" class="inner-panel">
+        <ul class="todo-list">
+          <li class="todo-item"><div class="todo-checkbox"></div><div><div class="todo-text">Fazer troca de dinheiro / ativar cartão internacional antes de embarcar</div></div><span class="todo-urgency urgency-now">Antes da viagem</span></li>
+          <li class="todo-item"><div class="todo-checkbox"></div><div><div class="todo-text">Comprar Oyster Card ou usar contactless no aeroporto (Heathrow Express ou Underground)</div></div><span class="todo-urgency urgency-now">No aeroporto</span></li>
+          <li class="todo-item"><div class="todo-checkbox"></div><div><div class="todo-text">Avisar o hotel sobre chegada cedo (bagagem antes do check-in)</div></div><span class="todo-urgency urgency-soon">Antes</span></li>
+          <li class="todo-item"><div class="todo-checkbox"></div><div><div class="todo-text">Baixar app de metrô de Londres (TfL Go ou Citymapper)</div></div><span class="todo-urgency urgency-soon">Antes</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 2 -->
+  <div class="day-card london" id="card-d2">
+    <div class="day-header">
+      <div class="left">
+        <div class="day-number">Dia 2 · Domingo</div>
+        <div class="day-title">Westminster, Buckingham & South Bank</div>
+        <div class="day-subtitle">25 de Outubro</div>
+      </div>
+      <span class="chevron">▾</span>
+    </div>
+    <div class="day-body">
+      <div class="inner-tabs">
+        <div class="inner-tab active" data-panel="d2-prog">Programa</div>
+        <div class="inner-tab" data-panel="d2-todo">✅ To-do</div>
+      </div>
+      <div id="d2-prog" class="inner-panel active">
+        <div class="tip-box">🎖️ Troca da Guarda (Changing of the Guard) é aos domingos — chegue às <strong>10h30</strong>. É grátis!</div>
+        <div class="time-block">
+          <span class="time-label">Manhã</span>
+          <div class="activity"><span class="activity-icon">👑</span><div class="activity-content"><div class="activity-name">Palácio de Buckingham</div><div class="activity-detail">Troca da Guarda ~11h00 · Chegar às 10h30<br><span class="tag tag-free">Grátis</span></div></div></div>
+          <div class="activity"><span class="activity-icon">🌿</span><div class="activity-content"><div class="activity-name">St. James's Park</div><div class="activity-detail">Caminhada até Westminster<br><span class="tag tag-free">Grátis</span></div></div></div>
+          <div class="activity"><span class="activity-icon">🏛️</span><div class="activity-content"><div class="activity-name">Palácio de Westminster + Big Ben</div><div class="activity-detail">Exterior e fotos · Westminster Bridge<br><span class="tag tag-free">Grátis (exterior)</span></div></div></div>
+          <div class="activity"><span class="activity-icon">⛪</span><div class="activity-content"><div class="activity-name">Abadia de Westminster</div><div class="activity-detail">Opcional — cobrado · Reserve online<br><span class="tag tag-book">Reservar online</span></div></div></div>
+        </div>
+        <div class="time-block">
+          <span class="time-label">Tarde</span>
+          <div class="activity"><span class="activity-icon">🎨</span><div class="activity-content"><div class="activity-name">Tate Modern</div><div class="activity-detail">Arte moderna gratuita · Terraço com vista incrível do Tâmisa<br><span class="tag tag-free">Grátis</span> <span class="tag tag-tip">Adicionado ao plano!</span></div></div></div>
+          <div class="activity"><span class="activity-icon">🎭</span><div class="activity-content"><div class="activity-name">Shakespeare's Globe Theatre</div><div class="activity-detail">Passagem ou tour curto</div></div></div>
+          <div class="activity"><span class="activity-icon">🎡</span><div class="activity-content"><div class="activity-name">London Eye</div><div class="activity-detail">Opcional — Reserve online se quiser subir<br><span class="tag tag-book">Reservar online</span> <span class="tag tag-optional">Opcional</span></div></div></div>
+        </div>
+        <div class="time-block">
+          <span class="time-label">Noite</span>
+          <div class="activity"><span class="activity-icon">🛒</span><div class="activity-content"><div class="activity-name">Borough Market</div><div class="activity-detail">Fecha ~17h aos domingos — vá antes do anoitecer</div></div></div>
+          <div class="activity"><span class="activity-icon">🍽️</span><div class="activity-content"><div class="activity-name">Jantar no South Bank</div><div class="activity-detail">Muitas opções ao longo do rio</div></div></div>
+        </div>
+      </div>
+      <div id="d2-todo" class="inner-panel">
+        <ul class="todo-list">
+          <li class="todo-item"><div class="todo-checkbox"></div><div><div class="todo-text">Verificar horário confirmado da Troca da Guarda para outubro 2026 (site Royal Collection Trust)</div></div><span class="todo-urgency urgency-soon">Antes</span></li>
+          <li class="todo-item"><div class="todo-checkbox"></div><div><div class="todo-text">Reservar London Eye (se quiser subir)</div></div><span class="todo-urgency urgency-soon">Opcional</span></li>
+          <li class="todo-item"><div class="todo-checkbox"></div><div><div class="todo-text">Confirmar horário do Borough Market aos domingos</div></div><span class="todo-urgency urgency-before">Antes</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 3 -->
+  <div class="day-card london" id="card-d3">
+    <div class="day-header">
+      <div class="left">
+        <div class="day-number">Dia 3 · Segunda</div>
+        <div class="day-title">East London — Torre, Catedral & Brick Lane</div>
+        <div class="day-subtitle">26 de Outubro</div>
+      </div>
+      <span class="chevron">▾</span>
+    </div>
+    <div class="day-body">
+      <div class="inner-tabs">
+        <div class="inner-tab active" data-panel="d3-prog">Programa</div>
+        <div class="inner-tab" data-panel="d3-todo">✅ To-do</div>
+      </div>
+      <div id="d3-prog" class="inner-panel active">
+        <div class="time-block">
+          <span class="time-label">Manhã</span>
+          <div class="activity"><span class="activity-icon">🏰</span><div class="activity-content"><div class="activity-name">Torre de Londres</div><div class="activity-detail">Abre às 09h00 · Jóias da Coroa, história medieval<br><span class="tag tag-book">Reservar com antecedência!</span></div></div></div>
+          <div class="activity"><span class="activity-icon">🌉</span><div class="activity-content"><div class="activity-name">Tower Bridge</div><div class="activity-detail">Cruzar a ponte · Exterior grátis<br><span class="tag tag-free">Grátis (exterior)</span></div></div></div>
+        </div>
+        <div class="time-block">
+          <span class="time-label">Meio-dia</span>
+          <div class="activity"><span class="activity-icon">🏛️</span><div class="activity-content"><div class="activity-name">Leadenhall Market</div><div class="activity-detail">15 min a pé da Tower Bridge · Mercado vitoriano coberto · Diagon Alley do Harry Potter<br><span class="tag tag-tip">Adicionado ao plano!</span></div></div></div>
+          <div class="activity"><span class="activity-icon">⛪</span><div class="activity-content"><div class="activity-name">Catedral de St. Paul's</div><div class="activity-detail">Cúpula icônica · Galeria dos Sussurros (Whispering Gallery)<br><span class="tag tag-book">Reserve entrada online</span> <span class="tag tag-tip">Adicionado ao plano!</span></div></div></div>
+        </div>
+        <div class="time-block">
+          <span class="time-label">Tarde</span>
+          <div class="activity"><span class="activity-icon">🎨</span><div class="activity-content"><div class="activity-name">Brick Lane</div><div class="activity-detail">Arte de rua, curry, mercado de segunda-mão</div></div></div>
+          <div class="activity"><span class="activity-icon">🏙️</span><div class="activity-content"><div class="activity-name">Shoreditch</div><div class="activity-detail">Bairro criativo, street art<br><span class="tag tag-optional">Opcional</span></div></div></div>
+        </div>
+        <div class="time-block">
+          <span class="time-label">Noite</span>
+          <div class="activity"><span class="activity-icon">🌆</span><div class="activity-content"><div class="activity-name">Sky Garden ou The Shard</div><div class="activity-detail">Sky Garden = grátis mas precisa reservar · The Shard = pago<br><span class="tag tag-book">Sky Garden: reservar online (grátis)</span></div></div></div>
+        </div>
+      </div>
+      <div id="d3-todo" class="inner-panel">
+        <ul class="todo-list">
+          <li class="todo-item"><div class="todo-checkbox"></div><div><div class="todo-text">Comprar ingressos Torre de Londres online (esgota com dias de antecedência)</div></div><span class="todo-urgency urgency-now">Urgente!</span></li>
+          <li class="todo-item"><div class="todo-checkbox"></div><div><div class="todo-text">Reservar Sky Garden (gratuito mas obrigatório agendar online — esgota rápido)</div></div><span class="todo-urgency urgency-now">Urgente!</span></li>
+          <li class="todo-item"><div class="todo-checkbox"></div><div><div class="todo-text">Reservar St. Paul's Cathedral (entrada com hora marcada)</div></div><span class="todo-urgency urgency-soon">Em breve</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 4 -->
+  <div class="day-card london" id="card-d4">
+    <div class="day-header">
+      <div class="left">
+        <div class="day-number">Dia 4 · Terça</div>
+        <div class="day-title">Museus, Covent Garden & Camden</div>
+        <div class="day-subtitle">27 de Outubro</div>
+      </div>
+      <span class="chevron">▾</span>
+    </div>
+    <div class="day-body">
+      <div class="inner-tabs">
+        <div class="inner-tab active" data-panel="d4-prog">Programa</div>
+        <div class="inner-tab" data-panel="d4-todo">✅ To-do</div>
+      </div>
+      <div id="d4-prog" class="inner-panel active">
+        <div class="tip-box">💡 Não tente fazer 3 museus em um dia. O British Museum e National Gallery já são mais do que suficientes.</div>
+        <div class="time-block">
+          <span class="time-label">Manhã</span>
+          <div class="activity"><span class="activity-icon">🏛️</span><div class="activity-content"><div class="activity-name">British Museum</div><div class="activity-detail">Abre às 10h00 · Reserve slot de entrada · Plano 2-3h mínimo<br><span class="tag tag-free">Grátis</span> <span class="tag tag-book">Reservar slot online</span></div></div></div>
+        </div>
+        <div class="time-block">
+          <span class="time-label">Meio-dia</span>
+          <div class="activity"><span class="activity-icon">🎪</span><div class="activity-content"><div class="activity-name">Covent Garden</div><div class="activity-detail">Almoço, artistas de rua, lojas</div></div></div>
+          <div class="activity"><span class="activity-icon">🖼️</span><div class="activity-content"><div class="activity-name">National Gallery</div><div class="activity-detail">Trafalgar Square · Uma das maiores coleções de arte do mundo<br><span class="tag tag-free">Grátis</span> <span class="tag tag-tip">Adicionado ao plano!</span></div></div></div>
+          <div class="activity"><span class="activity-icon">💡</span><div class="activity-content"><div class="activity-name">Piccadilly Circus</div><div class="activity-detail">Passagem rápida para fotos</div></div></div>
+        </div>
+        <div class="time-block">
+          <span class="time-label">Tarde</span>
+          <div class="activity"><span class="activity-icon">🛍️</span><div class="activity-content"><div class="activity-name">Oxford Street</div><div class="activity-detail">Compras, H&amp;M, Primark, lojas britânicas</div></div></div>
+        </div>
+        <div class="time-block">
+          <span class="time-label">Noite</span>
+          <div class="activity"><span class="activity-icon">🎸</span><div class="activity-content"><div class="activity-name">Camden Town / Camden Market</div><div class="activity-detail">Comida diversificada, música ao vivo, cultura alternativa</div></div></div>
+          <div class="activity"><span class="activity-icon">🎵</span><div class="activity-content"><div class="activity-name">Abbey Road</div><div class="activity-detail">Fotos na faixa de pedestres · 10 min de Camden<br><span class="tag tag-free">Grátis</span></div></div></div>
+        </div>
+      </div>
+      <div id="d4-todo" class="inner-panel">
+        <ul class="todo-list">
+          <li class="todo-item"><div class="todo-checkbox"></div><div><div class="todo-text">Reservar slot de entrada no British Museum (gratuito mas horário marcado recomendado)</div></div><span class="todo-urgency urgency-soon">Em breve</span></li>
+          <li class="todo-item"><div class="todo-checkbox"></div><div><div class="todo-text">⚠️ AMANHÃ (28 Out): acordar às 04h00 — organizar mala e documentos esta noite!</div></div><span class="todo-urgency urgency-now">Esta noite!</span></li>
+          <li class="todo-item"><div class="todo-checkbox"></div><div><div class="todo-text">Avisar o hotel para checkout antecipado (04h30) — combinar na recepção hoje</div></div><span class="todo-urgency urgency-now">Hoje!</span></li>
+          <li class="todo-item"><div class="todo-checkbox"></div><div><div class="todo-text">Confirmar reserva do Blue Lagoon (Islândia) — entrada de tarde do dia 28</div></div><span class="todo-urgency urgency-soon">Verificar</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end london1 -->
+
+<!-- ===================== ICELAND ===================== -->
+<div id="iceland" class="section">
+  <p class="section-label">🇮🇸 Islândia — Ring Road (28 Out – 4 Nov)</p>
+
+  <!-- DAY 5 - DEPARTURE -->
+  <div class="day-card travel" id="card-d5">
+    <div class="day-header">
+      <div class="left">
+        <div class="day-number">Dia 5 · Quarta ⚠️</div>
+        <div class="day-title">Partida Londres → Reykjavik</div>
+        <div class="day-subtitle">28 de Outubro · Acorda 04h00!</div>
+      </div>
+      <span class="chevron">▾</span>
+    </div>
+    <div class="day-body">
+      <div class="inner-tabs">
+        <div class="inner-tab active" data-panel="d5-prog">Programa</div>
+        <div class="inner-tab" data-panel="d5-todo">✅ To-do</div>
+      </div>
+      <div id="d5-prog" class="inner-panel active">
+        <div class="warn-box"><strong>⏰ Voo às 07h30 — sair do hotel às 04h30!</strong>Aeroporto Heathrow: chegar com pelo menos 2h30 de antecedência.</div>
+        <div class="hotel-badge"><span class="hotel-icon">🏨</span><div class="hotel-info"><div class="hotel-name">Center Hotels Laugavegur</div><div class="hotel-dates">Check-in: 28 Out (tarde)</div></div></div>
+        <div class="time-block">
+          <span class="time-label">Manhã — viagem</span>
+          <div class="activity"><span class="activity-icon">⏰</span><div class="activity-content"><div class="activity-name">04h00 — Acordar</div><div class="activity-detail">Checkout Pembridge Palace Hotel</div></div></div>
+          <div class="activity"><span class="activity-icon">✈️</span><div class="activity-content"><div class="activity-name">07h30 — Voo BA800 LHR→KEF</div><div class="activity-detail">Chegada em Reykjavik às 10h50</div></div></div>
+          <div class="activity"><span class="activity-icon">🚗</span><div class="activity-content"><div class="activity-name">~11h30 — Retirar carro alugado no KEF</div><div class="activity-detail">Confirmar com locadora antes</div></div></div>
+        </div>
+        <div class="time-block">
+          <span class="time-label">Tarde — Islândia!</span>
+          <div class="activity"><span class="activity-icon">🏊</span><div class="activity-content"><div class="activity-name">12h30–15h00 — Blue Lagoon</div><div class="activity-detail">30 min de carro do KEF · Reserva obrigatória antecipada<br><span class="tag tag-book">Reservar online com antecedência!</span></div></div></div>
+          <div class="activity"><span class="activity-icon">🏙️</span><div class="activity-content"><div class="activity-name">~16h30 — Check-in em Reykjavik</div><div class="activity-detail">Center Hotels Laugavegur</div></div></div>
+        </div>
+        <div class="time-block">
+          <span class="time-label">Noite — Reykjavik</span>
+          <div class="activity"><span class="activity-icon">⛪</span><div class="activity-content"><div class="activity-name">Hallgrímskirkja</div><div class="activity-detail">Igreja icônica · Subir a torre para vista panorâmica</div></div></div>
+          <div class="activity"><span class="activity-icon">🌈</span><div class="activity-content"><div class="activity-name">Laugavegur + Rainbow Street</div><div class="activity-detail">Rua principal · Lojas, cafés, restaurantes</div></div></div>
+          <div class="activity"><span class="activity-icon">🎼</span><div class="activity-content"><div class="activity-name">Harpa Concert Hall + Sun Voyager</div><div class="activity-detail">Porto antigo · Arquitetura impressionante</div></div></div>
+        </div>
+      </div>
+      <div id="d5-todo" class="inner-panel">
+        <ul class="todo-list">
+          <li class="todo-item"><div class="todo-checkbox"></div><div><div class="todo-text">Reservar Blue Lagoon online (esgota semanas antes!)</div></div><span class="todo-urgency urgency-now">Urgente!</span></li>
+          <li class="todo-item"><div class="todo-checkbox"></div><div><div class="todo-text">Confirmar detalhes da locadora de carro no KEF (horário de retirada)</div></div><span class="todo-urgency urgency-soon">Em breve</span></li>
+          <li class="todo-item"><div class="todo-checkbox"></div><div><div class="todo-text">Baixar app de aurora boreal (My Aurora Forecast ou Aurora Alerts)</div></div><span class="todo-urgency urgency-soon">Antes</span></li>
+          <li class="todo-item"><div class="todo-checkbox"></div><div><div class="todo-text">Verificar condições meteorológicas da Islândia (vedur.is)</div></div><span class="todo-urgency urgency-before">Diariamente na Islândia</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 6 -->
+  <div class="day-card iceland" id="card-d6">
+    <div class="day-header">
+      <div class="left">
+        <div class="day-number">Dia 6 · Quinta</div>
+        <div class="day-title">Golden Circle → Borgarnes</div>
+        <div class="day-subtitle">29 de Outubro · ~297 km</div>
+      </div>
+      <span class="chevron">▾</span>
+    </div>
+    <div class="day-body">
+      <div class="inner-tabs">
+        <div class="inner-tab active" data-panel="d6-prog">Programa</div>
+        <div class="inner-tab" data-panel="d6-todo">✅ To-do</div>
+      </div>
+      <div id="d6-prog" class="inner-panel active">
+        <div class="hotel-badge"><span class="hotel-icon">🏨</span><div class="hotel-info"><div class="hotel-name">Hótel Vesturland</div><div class="hotel-dates">Borgarnes · Check-in ~17h–18h</div></div></div>
+        <div class="drive-summary"><span class="drive-chip">🚗 ~297 km total</span><span class="drive-chip">⏱️ ~6h com paradas</span><span class="drive-chip">🕗 Saída 08h00</span></div>
+        <div class="time-block">
+          <span class="time-label">Rota do dia</span>
+          <div class="activity"><span class="activity-icon">🌋</span><div class="activity-content"><div class="activity-name">Þingvellir National Park</div><div class="activity-detail">~45 min de Reykjavik · Placas tectônicas visíveis · Parlamento histórico<br><span class="tag tag-free">Parque Nacional</span></div></div></div>
+          <div class="activity"><span class="activity-icon">💦</span><div class="activity-content"><div class="activity-name">Geysir / Strokkur</div><div class="activity-detail">~1h de Þingvellir · Entra em erupção a cada 5-10 minutos<br><span class="tag tag-free">Grátis</span></div></div></div>
+          <div class="activity"><span class="activity-icon">🌊</span><div class="activity-content"><div class="activity-name">Gullfoss</div><div class="activity-detail">~10 min de Geysir · Cachoeira de dois níveis, muito poderosa</div></div></div>
+          <div class="activity"><span class="activity-icon">🔵</span><div class="activity-content"><div class="activity-name">Kerið Crater</div><div class="activity-detail">~45 min de volta · Cratera vulcânica com lago · Pequena taxa de entrada</div></div></div>
+          <div class="activity"><span class="activity-icon">🍅</span><div class="activity-content"><div class="activity-name">Restaurante Fridheimar (almoço)</div><div class="activity-detail">Entre Geysir e Gullfoss · Estufa de tomates, sopa e hambúrguer únicos<br><span class="tag tag-book">Reservar com antecedência!</span></div></div></div>
+          <div class="activity"><span class="activity-icon">🏘️</span><div class="activity-content"><div class="activity-name">Borgarnes Settlement Center</div><div class="activity-detail">Opcional · História dos primeiros colonizadores islandeses<br><span class="tag tag-optional">Opcional</span></div></div></div>
+        </div>
+      </div>
+      <div id="d6-todo" class="inner-panel">
+        <ul class="todo-list">
+          <li class="todo-item"><div class="todo-checkbox"></div><div><div class="todo-text">Reservar almoço no Restaurante Fridheimar</div></div><span class="todo-urgency urgency-now">Urgente!</span></li>
+          <li class="todo-item"><div class="todo-checkbox"></div><div><div class="todo-text">Sair de Reykjavik às 08h00</div></div><span class="todo-urgency urgency-before">No dia</span></li>
+          <li class="todo-item"><div class="todo-checkbox"></div><div><div class="todo-text">Verificar condições de estrada (road.is)</div></div><span class="todo-urgency urgency-before">Na manhã</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 7 -->
+  <div class="day-card iceland" id="card-d7">
+    <div class="day-header">
+      <div class="left">
+        <div class="day-number">Dia 7 · Sexta</div>
+        <div class="day-title">Borgarnes → Cachoeiras → Akureyri</div>
+        <div class="day-subtitle">30 de Outubro · ~313 km</div>
+      </div>
+      <span class="chevron">▾</span>
+    </div>
+    <div class="day-body">
+      <div class="inner-tabs">
+        <div class="inner-tab active" data-panel="d7-prog">Programa</div>
+        <div class="inner-tab" data-panel="d7-todo">✅ To-do</div>
+      </div>
+      <div id="d7-prog" class="inner-panel active">
+        <div class="hotel-badge"><span class="hotel-icon">🏨</span><div class="hotel-info"><div class="hotel-name">Centrum Hotel</div><div class="hotel-dates">Akureyri · Check-in ~15h–16h</div></div></div>
+        <div class="drive-summary"><span class="drive-chip">🚗 ~313 km total</span><span class="drive-chip">⏱️ ~5h com paradas</span><span class="drive-chip">🕗 Saída 08h00</span></div>
+        <div class="time-block">
+          <span class="time-label">Rota do dia — NOVIDADES!</span>
+          <div class="activity"><span class="activity-icon">💧</span><div class="activity-content"><div class="activity-name">Hraunfossar & Barnafoss</div><div class="activity-detail">~40 min de Borgarnes · Cachoeiras brotando de campo de lava — ÚNICO no mundo<br><span class="tag tag-tip">✨ Adicionado ao plano!</span></div></div></div>
+          <div class="activity"><span class="activity-icon">♨️</span><div class="activity-content"><div class="activity-name">Deildartunguhver</div><div class="activity-detail">~10 min de Hraunfossar · A fonte termal mais poderosa da Europa<br><span class="tag tag-tip">✨ Adicionado ao plano!</span></div></div></div>
+          <div class="activity"><span class="activity-icon">🌊</span><div class="activity-content"><div class="activity-name">Goðafoss — "Cachoeira dos Deuses"</div><div class="activity-detail">~20 min antes de Akureyri · Uma das mais fotogênicas da Islândia<br><span class="tag tag-tip">✨ Adicionado ao plano!</span></div></div></div>
+          <div class="activity"><span class="activity-icon">🏙️</span><div class="activity-content"><div class="activity-name">Akureyri — chegar ~15h–16h</div><div class="activity-detail">Akureyrarkirkja (igreja icônica) · Centro histórico · Porto</div></div></div>
+        </div>
+      </div>
+      <div id="d7-todo" class="inner-panel">
+        <ul class="todo-list">
+          <li class="todo-item"><div class="todo-checkbox"></div><div><div class="todo-text">Sair de Borgarnes às 08h00</div></div><span class="todo-urgency urgency-before">No dia</span></li>
+          <li class="todo-item"><div class="todo-checkbox"></div><div><div class="todo-text">Verificar condições de estrada (road.is)</div></div><span class="todo-urgency urgency-before">Na manhã</span></li>
+          <li class="todo-item"><div class="todo-checkbox"></div><div><div class="todo-text">Atenção ao pôr do sol ~17h00 — planejar paradas externas para antes disso</div></div><span class="todo-urgency urgency-before">No dia</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 8 -->
+  <div class="day-card iceland" id="card-d8">
+    <div class="day-header">
+      <div class="left">
+        <div class="day-number">Dia 8 · Sábado 🎃</div>
+        <div class="day-title">Akureyri → Mývatn → Egilsstaðir</div>
+        <div class="day-subtitle">31 de Outubro · ~247 km</div>
+      </div>
+      <span class="chevron">▾</span>
+    </div>
+    <div class="day-body">
+      <div class="inner-tabs">
+        <div class="inner-tab active" data-panel="d8-prog">Programa</div>
+        <div class="inner-tab" data-panel="d8-todo">✅ To-do</div>
+      </div>
+      <div id="d8-prog" class="inner-panel active">
+        <div class="hotel-badge"><span class="hotel-icon">🏨</span><div class="hotel-info"><div class="hotel-name">Hérað - Berjaya Iceland Hotels</div><div class="hotel-dates">Egilsstaðir · Check-in ~16h–17h</div></div></div>
+        <div class="drive-summary"><span class="drive-chip">🚗 ~247 km total</span><span class="drive-chip">⏱️ ~4h com paradas</span><span class="drive-chip">🕘 Saída 09h00</span></div>
+        <div class="time-block">
+          <span class="time-label">Rota do dia — NOVIDADE!</span>
+          <div class="activity"><span class="activity-icon">🌋</span><div class="activity-content"><div class="activity-name">Lago Mývatn — área geotérmica</div><div class="activity-detail">~1h de Akureyri · Pseudo-crateras, Hverir (lama vulcânica), Grjótagjá (caverna com água turquesa)<br><span class="tag tag-tip">✨ Adicionado ao plano! Um dos cenários mais únicos da Islândia</span></div></div></div>
+          <div class="activity"><span class="activity-icon">🦆</span><div class="activity-content"><div class="activity-name">Lagarfljót lake</div><div class="activity-detail">Perto de Egilsstaðir · O "Loch Ness" islandês</div></div></div>
+        </div>
+        <div class="tip-box">🎃 Halloween numa cidade pequena da Islândia — experiência única!</div>
+      </div>
+      <div id="d8-todo" class="inner-panel">
+        <ul class="todo-list">
+          <li class="todo-item"><div class="todo-checkbox"></div><div><div class="todo-text">Verificar se Grjótagjá cave está acessível ao público (às vezes fecham)</div></div><span class="todo-urgency urgency-soon">Antes</span></li>
+          <li class="todo-item"><div class="todo-checkbox"></div><div><div class="todo-text">Verificar condições de estrada (road.is)</div></div><span class="todo-urgency urgency-before">Na manhã</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 9 -->
+  <div class="day-card iceland" id="card-d9">
+    <div class="day-header">
+      <div class="left">
+        <div class="day-number">Dia 9 · Domingo ⚠️</div>
+        <div class="day-title">Egilsstaðir → Stuðlagil → Höfn</div>
+        <div class="day-subtitle">1 de Novembro · Saída às 07h30!</div>
+      </div>
+      <span class="chevron">▾</span>
+    </div>
+    <div class="day-body">
+      <div class="inner-tabs">
+        <div class="inner-tab active" data-panel="d9-prog">Programa</div>
+        <div class="inner-tab" data-panel="d9-todo">✅ To-do</div>
+      </div>
+      <div id="d9-prog" class="inner-panel active">
+        <div class="hotel-badge"><span class="hotel-icon">🏨</span><div class="hotel-info"><div class="hotel-name">Höfn - Berjaya Iceland Hotels</div><div class="hotel-dates">Höfn · Capital da lagosta!</div></div></div>
+        <div class="drive-summary"><span class="drive-chip">🚗 ~185 km + desvio</span><span class="drive-chip">⏱️ ~4h total</span><span class="drive-chip">🕖 Saída 07h30</span></div>
+        <div class="warn-box"><strong>⚠️ Estrada para Stuðlagil pode ser intransitável com neve!</strong>Rota 923 é não pavimentada. Verifique road.is antes de sair.</div>
+        <div class="time-block">
+          <span class="time-label">Rota do dia</span>
+          <div class="activity"><span class="activity-icon">🗿</span><div class="activity-content"><div class="activity-name">Stuðlagil Canyon</div><div class="activity-detail">~30 km ao norte de Egilsstaðir via Rota 923 (não pavimentada) · Colunas de basalto hexagonais + rio turquesa<br><span class="tag tag-tip">Vale muito a pena se estiver acessível!</span></div></div></div>
+          <div class="activity"><span class="activity-icon">🎣</span><div class="activity-content"><div class="activity-name">Djúpivogur</div><div class="activity-detail">Vila de pescadores charmosa · Parada rápida</div></div></div>
+          <div class="activity"><span class="activity-icon">🦞</span><div class="activity-content"><div class="activity-name">Jantar em Höfn — LAGOSTA!</div><div class="activity-detail">Höfn é a capital da lagosta da Islândia — não perca!<br><span class="tag tag-book">Reservar restaurante</span></div></div></div>
+        </div>
+      </div>
+      <div id="d9-todo" class="inner-panel">
+        <ul class="todo-list">
+          <li class="todo-item"><div class="todo-checkbox"></div><div><div class="todo-text">Verificar Rota 923 (Stuðlagil) em road.is antes de sair</div></div><span class="todo-urgency urgency-now">Na manhã!</span></li>
+          <li class="todo-item"><div class="todo-checkbox"></div><div><div class="todo-text">Reservar restaurante de lagosta em Höfn (ex: Pakkhús ou Hafnarbúðin)</div></div><span class="todo-urgency urgency-soon">Em breve</span></li>
+          <li class="todo-item"><div class="todo-checkbox"></div><div><div class="todo-text">Sair de Egilsstaðir às 07h30 (dia longo com desvio)</div></div><span class="todo-urgency urgency-before">No dia</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 10 -->
+  <div class="day-card iceland" id="card-d10">
+    <div class="day-header">
+      <div class="left">
+        <div class="day-number">Dia 10 · Segunda</div>
+        <div class="day-title">Höfn → Lagoa Glacial → Diamond Beach → Vík</div>
+        <div class="day-subtitle">2 de Novembro · ~270 km</div>
+      </div>
+      <span class="chevron">▾</span>
+    </div>
+    <div class="day-body">
+      <div class="inner-tabs">
+        <div class="inner-tab active" data-panel="d10-prog">Programa</div>
+        <div class="inner-tab" data-panel="d10-todo">✅ To-do</div>
+      </div>
+      <div id="d10-prog" class="inner-panel active">
+        <div class="hotel-badge"><span class="hotel-icon">🏨</span><div class="hotel-info"><div class="hotel-name">Hotel Katla by Keahotels</div><div class="hotel-dates">Vík · Check-in ~15h–16h</div></div></div>
+        <div class="drive-summary"><span class="drive-chip">🚗 ~270 km total</span><span class="drive-chip">⏱️ ~4h com paradas</span><span class="drive-chip">🕗 Saída 08h00</span></div>
+        <div class="time-block">
+          <span class="time-label">Rota do dia</span>
+          <div class="activity"><span class="activity-icon">⛰️</span><div class="activity-content"><div class="activity-name">Stokksnes / Vestrahorn</div><div class="activity-detail">~15 min leste de Höfn · Montanha dramática numa praia de areia preta<br><span class="tag tag-tip">✨ Adicionado ao plano!</span></div></div></div>
+          <div class="activity"><span class="activity-icon">🧊</span><div class="activity-content"><div class="activity-name">Jökulsárlón Glacier Lagoon</div><div class="activity-detail">~80 km de Höfn · Icebergs flutuando · Planejar 1-1,5h</div></div></div>
+          <div class="activity"><span class="activity-icon">💎</span><div class="activity-content"><div class="activity-name">Diamond Beach</div><div class="activity-detail">5 min a pé da lagoa · Blocos de gelo na areia preta · Fotos incríveis</div></div></div>
+          <div class="activity"><span class="activity-icon">🏖️</span><div class="activity-content"><div class="activity-name">Reynisfjara + Hálsanefshellir cave</div><div class="activity-detail">Antes do pôr do sol (~17h00) · Praia de areia preta + caverna de basalto</div></div></div>
+          <div class="activity"><span class="activity-icon">⛪</span><div class="activity-content"><div class="activity-name">Igreja de Vík</div><div class="activity-detail">Vista panorâmica do topo da colina</div></div></div>
+        </div>
+        <div class="warn-box"><strong>⚠️ Reynisfjara — cuidado com as ondas!</strong>Ondas traiçoeiras — nunca virar as costas para o mar.</div>
+      </div>
+      <div id="d10-todo" class="inner-panel">
+        <ul class="todo-list">
+          <li class="todo-item"><div class="todo-checkbox"></div><div><div class="todo-text">Verificar horário do pôr do sol (será ~17h00) — Reynisfjara antes de escurecer</div></div><span class="todo-urgency urgency-before">No dia</span></li>
+          <li class="todo-item"><div class="todo-checkbox"></div><div><div class="todo-text">Confirmar horário do Ice Cave amanhã (10h00) e ponto de encontro</div></div><span class="todo-urgency urgency-now">Hoje!</span></li>
+          <li class="todo-item"><div class="todo-checkbox"></div><div><div class="todo-text">Reservar kattakaffihusid (cat café) para amanhã à noite em Reykjavik</div></div><span class="todo-urgency urgency-soon">Em breve</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 11 -->
+  <div class="day-card iceland" id="card-d11">
+    <div class="day-header">
+      <div class="left">
+        <div class="day-number">Dia 11 · Terça ❄️</div>
+        <div class="day-title">Ice Cave → Cachoeiras → Reykjavik</div>
+        <div class="day-subtitle">3 de Novembro · ICE CAVE 10h00 FIXO!</div>
+      </div>
+      <span class="chevron">▾</span>
+    </div>
+    <div class="day-body">
+      <div class="inner-tabs">
+        <div class="inner-tab active" data-panel="d11-prog">Programa</div>
+        <div class="inner-tab" data-panel="d11-todo">✅ To-do</div>
+      </div>
+      <div id="d11-prog" class="inner-panel active">
+        <div class="hotel-badge"><span class="hotel-icon">🏨</span><div class="hotel-info"><div class="hotel-name">Hotel Lotus</div><div class="hotel-dates">Reykjavik · Última noite na Islândia</div></div></div>
+        <div class="warn-box"><strong>❄️ RESERVA FIXA: Katla Ice Cave às 10h00</strong>Sair do hotel às 09h30. Ponto de encontro ~15 min de Vík.</div>
+        <div class="time-block">
+          <span class="time-label">Cronograma do dia</span>
+          <div class="activity"><span class="activity-icon">🚗</span><div class="activity-content"><div class="activity-name">09h30 — Sair do hotel</div><div class="activity-detail">15 min até o ponto de encontro do tour</div></div></div>
+          <div class="activity"><span class="activity-icon">❄️</span><div class="activity-content"><div class="activity-name">10h00–12h30 — Katla Ice Cave</div><div class="activity-detail">Tour guiado · ~2-3h de duração<br><span class="tag tag-fixed">Reserva Confirmada!</span></div></div></div>
+          <div class="activity"><span class="activity-icon">🌊</span><div class="activity-content"><div class="activity-name">13h00 — Dyrhólaey</div><div class="activity-detail">Arco de pedra dramático, habitat de papagaio-do-ártico, farol</div></div></div>
+          <div class="activity"><span class="activity-icon">💧</span><div class="activity-content"><div class="activity-name">14h00 — Skógafoss</div><div class="activity-detail">Subir as escadas para o topo da cachoeira (~30 min de Dyrhólaey)</div></div></div>
+          <div class="activity"><span class="activity-icon">💧</span><div class="activity-content"><div class="activity-name">15h00 — Seljalandsfoss</div><div class="activity-detail">Você pode caminhar ATRÁS da cachoeira! (~30 min de Skógafoss)</div></div></div>
+          <div class="activity"><span class="activity-icon">🚗</span><div class="activity-content"><div class="activity-name">16h00 — Seguir para Reykjavik</div><div class="activity-detail">~1h30 de viagem · Chegada ~17h30</div></div></div>
+          <div class="activity"><span class="activity-icon">🐱</span><div class="activity-content"><div class="activity-name">Noite — Reykjavik</div><div class="activity-detail">kattakaffihusid (cat café) e/ou Fridheimar · Última noite na Islândia<br><span class="tag tag-book">Reservar com antecedência</span></div></div></div>
+        </div>
+        <div class="warn-box"><strong>⏱️ Dia apertado!</strong>Não demore nas paradas. Seljalandsfoss pode ficar molhada (leve capa impermeável).</div>
+      </div>
+      <div id="d11-todo" class="inner-panel">
+        <ul class="todo-list">
+          <li class="todo-item"><div class="todo-checkbox"></div><div><div class="todo-text">Confirmar local exato do ponto de encontro do Ice Cave tour</div></div><span class="todo-urgency urgency-soon">Antes</span></li>
+          <li class="todo-item"><div class="todo-checkbox"></div><div><div class="todo-text">Reservar kattakaffihusid e/ou Fridheimar para esta noite</div></div><span class="todo-urgency urgency-soon">Em breve</span></li>
+          <li class="todo-item"><div class="todo-checkbox"></div><div><div class="todo-text">Levar roupa impermeável e botas quentes para o Ice Cave e cachoeiras</div></div><span class="todo-urgency urgency-before">Preparar na noite anterior</span></li>
+          <li class="todo-item"><div class="todo-checkbox"></div><div><div class="todo-text">Fazer mala para devolução do carro amanhã cedo</div></div><span class="todo-urgency urgency-before">Esta noite</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 12 - Departure Iceland -->
+  <div class="day-card travel" id="card-d12">
+    <div class="day-header">
+      <div class="left">
+        <div class="day-number">Dia 12 · Quarta ⚠️</div>
+        <div class="day-title">Retorno — Reykjavik → Londres</div>
+        <div class="day-subtitle">4 de Novembro · Voo 11h50 — sair 09h30!</div>
+      </div>
+      <span class="chevron">▾</span>
+    </div>
+    <div class="day-body">
+      <div class="inner-tabs">
+        <div class="inner-tab active" data-panel="d12-prog">Programa</div>
+        <div class="inner-tab" data-panel="d12-todo">✅ To-do</div>
+      </div>
+      <div id="d12-prog" class="inner-panel active">
+        <div class="warn-box"><strong>⏰ Sair do Hotel Lotus às 09h30 no máximo!</strong>45 min até KEF + devolução do carro + check-in.</div>
+        <div class="hotel-badge"><span class="hotel-icon">🏨</span><div class="hotel-info"><div class="hotel-name">Park Grand Paddington Court</div><div class="hotel-dates">Check-in: 4 Nov ~16h · 2 noites</div></div></div>
+        <div class="time-block">
+          <span class="time-label">Dia</span>
+          <div class="activity"><span class="activity-icon">🚗</span><div class="activity-content"><div class="activity-name">09h30 — Partir para KEF</div><div class="activity-detail">Devolver carro alugado no aeroporto</div></div></div>
+          <div class="activity"><span class="activity-icon">✈️</span><div class="activity-content"><div class="activity-name">11h50 — Voo BA801 KEF→LHR</div><div class="activity-detail">Chegada em Londres às 15h00</div></div></div>
+          <div class="activity"><span class="activity-icon">🏨</span><div class="activity-content"><div class="activity-name">~16h30 — Check-in Paddington</div><div class="activity-detail">Park Grand Paddington Court · 2 noites</div></div></div>
+          <div class="activity"><span class="activity-icon">🚢</span><div class="activity-content"><div class="activity-name">Little Venice</div><div class="activity-detail">10 min a pé do hotel · Canal charmoso, passeio leve de tarde<br><span class="tag tag-tip">✨ Adicionado ao plano!</span></div></div></div>
+        </div>
+      </div>
+      <div id="d12-todo" class="inner-panel">
+        <ul class="todo-list">
+          <li class="todo-item"><div class="todo-checkbox"></div><div><div class="todo-text">Verificar processo de devolução do carro em KEF (localização, tanque cheio?)</div></div><span class="todo-urgency urgency-soon">Antes</span></li>
+          <li class="todo-item"><div class="todo-checkbox"></div><div><div class="todo-text">Confirmar escolha do passeio bate-e-volta de amanhã (Windsor / Oxford / Stonehenge+Bath)</div></div><span class="todo-urgency urgency-before">Esta noite</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end iceland -->
+
+<!-- ===================== LONDON LEG 2 ===================== -->
+<div id="london2" class="section">
+  <p class="section-label">🇬🇧 Londres — 2ª Etapa (4–6 Nov)</p>
+  <div class="hotel-badge"><span class="hotel-icon">🏨</span><div class="hotel-info"><div class="hotel-name">Park Grand Paddington Court</div><div class="hotel-dates">Check-in: 4 Nov · Check-out: 6 Nov manhã</div></div></div>
+  <div class="tip-box">🚆 A estação de Paddington é a ponto de partida perfeito para Windsor (40 min) e Oxford (1h) — ambas saem daqui!</div>
+
+  <!-- DAY 13 -->
+  <div class="day-card london" id="card-d13">
+    <div class="day-header">
+      <div class="left">
+        <div class="day-number">Dia 13 · Quinta</div>
+        <div class="day-title">Bate e Volta — Escolha um destino</div>
+        <div class="day-subtitle">5 de Novembro</div>
+      </div>
+      <span class="chevron">▾</span>
+    </div>
+    <div class="day-body">
+      <div class="inner-tabs">
+        <div class="inner-tab active" data-panel="d13-prog">Programa</div>
+        <div class="inner-tab" data-panel="d13-todo">✅ To-do</div>
+      </div>
+      <div id="d13-prog" class="inner-panel active">
+        <div class="time-block">
+          <span class="time-label">Opção 1 — Stonehenge + Bath ⭐ Recomendado</span>
+          <div class="activity"><span class="activity-icon">🏛️</span><div class="activity-content"><div class="activity-name">Bath — Roman Baths + cidade</div><div class="activity-detail">~1h30 de trem de Paddington · Arquitetura georgiana, spa romano<br><span class="tag tag-book">Ingresso Roman Baths online</span></div></div></div>
+          <div class="activity"><span class="activity-icon">🪨</span><div class="activity-content"><div class="activity-name">Stonehenge</div><div class="activity-detail">Na volta · Precisa reservar entrada com antecedência<br><span class="tag tag-book">Reservar online — OBRIGATÓRIO</span></div></div></div>
+        </div>
+        <div class="time-block">
+          <span class="time-label">Opção 2 — Windsor Castle</span>
+          <div class="activity"><span class="activity-icon">🏰</span><div class="activity-content"><div class="activity-name">Castelo de Windsor</div><div class="activity-detail">40 min de trem da Paddington Station · Castelo real em uso<br><span class="tag tag-book">Comprar ingressos online</span></div></div></div>
+          <div class="activity"><span class="activity-icon">🌳</span><div class="activity-content"><div class="activity-name">Long Walk + Windsor town</div><div class="activity-detail">Avenida arborizada, centro histórico</div></div></div>
+        </div>
+        <div class="time-block">
+          <span class="time-label">Opção 3 — Oxford</span>
+          <div class="activity"><span class="activity-icon">🎓</span><div class="activity-content"><div class="activity-name">Oxford</div><div class="activity-detail">1h de trem da Paddington Station · Universidade histórica, Bodleian Library, Covered Market<br><span class="tag tag-free">Maioria grátis (exterior)</span></div></div></div>
+        </div>
+      </div>
+      <div id="d13-todo" class="inner-panel">
+        <ul class="todo-list">
+          <li class="todo-item"><div class="todo-checkbox"></div><div><div class="todo-text">Decidir destino e comprar ingressos (Stonehenge obrigatório, Windsor recomendado)</div></div><span class="todo-urgency urgency-now">Urgente!</span></li>
+          <li class="todo-item"><div class="todo-checkbox"></div><div><div class="todo-text">Comprar passagem de trem (Paddington → destino escolhido)</div></div><span class="todo-urgency urgency-soon">Em breve</span></li>
+          <li class="todo-item"><div class="todo-checkbox"></div><div><div class="todo-text">Se Oxford: pesquisar quais faculdades estão abertas a visitantes</div></div><span class="todo-urgency urgency-before">Antes</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 14 -->
+  <div class="day-card london" id="card-d14">
+    <div class="day-header">
+      <div class="left">
+        <div class="day-number">Dia 14 · Sexta</div>
+        <div class="day-title">Último dia em Londres — Partida à noite</div>
+        <div class="day-subtitle">6 de Novembro · Voo 21h15</div>
+      </div>
+      <span class="chevron">▾</span>
+    </div>
+    <div class="day-body">
+      <div class="inner-tabs">
+        <div class="inner-tab active" data-panel="d14-prog">Programa</div>
+        <div class="inner-tab" data-panel="d14-todo">✅ To-do</div>
+      </div>
+      <div id="d14-prog" class="inner-panel active">
+        <div class="time-block">
+          <span class="time-label">Manhã</span>
+          <div class="activity"><span class="activity-icon">🏘️</span><div class="activity-content"><div class="activity-name">Chelsea + King's Road</div><div class="activity-detail">Bairro elegante, lojas britânicas, cafés charmosos</div></div></div>
+          <div class="activity"><span class="activity-icon">🖼️</span><div class="activity-content"><div class="activity-name">National Portrait Gallery</div><div class="activity-detail">Grátis · Trafalgar Square · Reaberta após reforma<br><span class="tag tag-free">Grátis</span> <span class="tag tag-tip">✨ Adicionado ao plano!</span></div></div></div>
+        </div>
+        <div class="time-block">
+          <span class="time-label">Tarde</span>
+          <div class="activity"><span class="activity-icon">🌿</span><div class="activity-content"><div class="activity-name">Sky Garden</div><div class="activity-detail">Jardim suspenso com vista 360° · Gratuito mas PRECISA reservar<br><span class="tag tag-book">Reservar online com antecedência (grátis)</span></div></div></div>
+          <div class="activity"><span class="activity-icon">🍽️</span><div class="activity-content"><div class="activity-name">Almoço — Borough Market ou Covent Garden</div><div class="activity-detail">Última refeição em Londres!</div></div></div>
+        </div>
+        <div class="time-block">
+          <span class="time-label">Partida</span>
+          <div class="activity"><span class="activity-icon">🚕</span><div class="activity-content"><div class="activity-name">~18h00 — Partir para Heathrow</div><div class="activity-detail">Tube (~50 min) ou táxi/Uber</div></div></div>
+          <div class="activity"><span class="activity-icon">✈️</span><div class="activity-content"><div class="activity-name">21h15 — Voo BA0246 LHR→GRU</div><div class="activity-detail">Chegada em São Paulo às 07 Nov 06h00</div></div></div>
+        </div>
+      </div>
+      <div id="d14-todo" class="inner-panel">
+        <ul class="todo-list">
+          <li class="todo-item"><div class="todo-checkbox"></div><div><div class="todo-text">Reservar Sky Garden (gratuito mas esgota — fazer isso com semanas de antecedência)</div></div><span class="todo-urgency urgency-now">Urgente!</span></li>
+          <li class="todo-item"><div class="todo-checkbox"></div><div><div class="todo-text">Verificar check-out do Paddington Court (guardar malas se necessário)</div></div><span class="todo-urgency urgency-before">Na manhã</span></li>
+          <li class="todo-item"><div class="todo-checkbox"></div><div><div class="todo-text">Fazer check-in online para voo LHR→GRU</div></div><span class="todo-urgency urgency-before">24h antes</span></li>
+          <li class="todo-item"><div class="todo-checkbox"></div><div><div class="todo-text">Verificar limites de bagagem para retorno</div></div><span class="todo-urgency urgency-soon">Antes</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end london2 -->
+
+<!-- ===================== RESERVES ===================== -->
+<div id="reserves" class="section">
+  <p class="section-label">📋 O que reservar com antecedência</p>
+
+  <div class="reserves-card">
+    <div class="reserves-header london-h">🇬🇧 Londres — Urgente (esgota rápido!)</div>
+    <div class="reserve-item"><div><div class="reserve-name">🏰 Torre de Londres</div><div class="reserve-note">Ingressos online · Muito popular · Reserve semanas antes</div></div><span class="tag tag-book">Pago</span></div>
+    <div class="reserve-item"><div><div class="reserve-name">🌿 Sky Garden</div><div class="reserve-note">Gratuito mas OBRIGATÓRIO reservar online · Esgota com dias de antecedência</div></div><span class="tag tag-free">Grátis</span></div>
+    <div class="reserve-item"><div><div class="reserve-name">🪨 Stonehenge</div><div class="reserve-note">Entrada com hora marcada — reserva obrigatória online</div></div><span class="tag tag-book">Pago</span></div>
+    <div class="reserve-item"><div><div class="reserve-name">🏰 Windsor Castle</div><div class="reserve-note">Comprar online com antecedência</div></div><span class="tag tag-book">Pago</span></div>
+    <div class="reserve-item"><div><div class="reserve-name">⛪ St. Paul's Cathedral</div><div class="reserve-note">Entrada online recomendada</div></div><span class="tag tag-book">Pago</span></div>
+    <div class="reserve-item"><div><div class="reserve-name">🏛️ British Museum</div><div class="reserve-note">Gratuito mas reserve slot de entrada</div></div><span class="tag tag-free">Grátis</span></div>
+    <div class="reserve-item"><div><div class="reserve-name">🎡 London Eye</div><div class="reserve-note">Reservar online se quiser subir</div></div><span class="tag tag-optional">Opcional</span></div>
+    <div class="reserve-item"><div><div class="reserve-name">🚆 Trens bate-e-volta</div><div class="reserve-note">Paddington → Windsor / Oxford / Bath (Trainline ou National Rail)</div></div><span class="tag tag-book">Pago</span></div>
+  </div>
+
+  <div class="reserves-card">
+    <div class="reserves-header iceland-h">🇮🇸 Islândia — Urgente!</div>
+    <div class="reserve-item"><div><div class="reserve-name">🏊 Blue Lagoon</div><div class="reserve-note">ESGOTA SEMANAS ANTES · Reservar para tarde de 28 Out · bluelagoon.com</div></div><span class="tag tag-book">Pago · Urgente!</span></div>
+    <div class="reserve-item"><div><div class="reserve-name">❄️ Katla Ice Cave</div><div class="reserve-note">JÁ RESERVADO — 3 Nov às 10h00 ✅</div></div><span class="tag tag-fixed">Confirmado</span></div>
+    <div class="reserve-item"><div><div class="reserve-name">🍅 Restaurante Fridheimar</div><div class="reserve-note">Almoço no Golden Circle (29 Out) · Reserve com antecedência</div></div><span class="tag tag-book">Pago</span></div>
+    <div class="reserve-item"><div><div class="reserve-name">🦞 Restaurante em Höfn</div><div class="reserve-note">Jantar lagosta (1 Nov) · Pakkhús ou Hafnarbúðin</div></div><span class="tag tag-book">Pago</span></div>
+    <div class="reserve-item"><div><div class="reserve-name">🐱 kattakaffihusid</div><div class="reserve-note">Cat café em Reykjavik · Noite de 3 Nov</div></div><span class="tag tag-book">Reservar</span></div>
+  </div>
+
+  <div class="info-box">
+    <strong>💡 Dica de reservas</strong>
+    Faça todas as reservas assim que possível — Torre de Londres, Sky Garden e Blue Lagoon em especial esgotam com semanas de antecedência, especialmente em outubro/novembro.
+  </div>
+</div>
+
+<!-- ===================== TIPS ===================== -->
+<div id="tips" class="section">
+  <p class="section-label">💡 Dicas Essenciais</p>
+
+  <div class="day-card london" id="card-tips-london" style="margin-bottom:20px">
+    <div class="day-header">
+      <div class="left"><div class="day-title">🇬🇧 Dicas para Londres</div></div>
+      <span class="chevron">▾</span>
+    </div>
+    <div class="day-body" style="padding:14px 16px">
+      <div class="tip-item"><span class="icon">🚇</span><div>Use <strong>Oyster Card ou cartão por aproximação</strong> em todos os metrôs e ônibus (não pague em dinheiro).</div></div>
+      <div class="tip-item"><span class="icon">⛅</span><div>Outubro/Novembro em Londres: frio (~8–13°C), chuviscos frequentes. Leve casaco impermeável e camadas.</div></div>
+      <div class="tip-item"><span class="icon">📱</span><div>Apps úteis: <strong>Citymapper</strong> (navegação) e <strong>TfL Go</strong> (metrô oficial).</div></div>
+      <div class="tip-item"><span class="icon">🎭</span><div>Muitos museus de Londres são <strong>gratuitos</strong>: British Museum, Tate Modern, National Gallery, Natural History Museum, V&A.</div></div>
+      <div class="tip-item"><span class="icon">🏪</span><div><strong>Lojas fecham cedo aos domingos</strong> em Londres (geralmente 12h–18h). Planeje compras para dias de semana.</div></div>
+      <div class="tip-item"><span class="icon">🍺</span><div>A hora do pub é uma experiência cultural! Pub quiz às terças e quartas em muitos locais.</div></div>
+    </div>
+  </div>
+
+  <div class="day-card iceland" id="card-tips-iceland">
+    <div class="day-header">
+      <div class="left"><div class="day-title">🇮🇸 Dicas para a Islândia</div></div>
+      <span class="chevron">▾</span>
+    </div>
+    <div class="day-body" style="padding:14px 16px">
+      <div class="tip-item"><span class="icon">🌌</span><div><strong>Aurora boreal</strong> é possível qualquer noite clara de 28 Out a 4 Nov. Baixe o app <strong>My Aurora Forecast</strong>. Melhor longe de luzes da cidade.</div></div>
+      <div class="tip-item"><span class="icon">🚗</span><div><strong>Dirigir na Islândia</strong>: Ring Road (Rota 1) é asfaltada. Estradas com "F" são off-road proibidas para carros normais. Sempre use <strong>road.is</strong> antes de sair.</div></div>
+      <div class="tip-item"><span class="icon">🌤️</span><div>Condições mudam rapidamente. <strong>vedur.is</strong> = previsão do tempo. <strong>road.is</strong> = condições de estrada. Consulte sempre na manhã.</div></div>
+      <div class="tip-item"><span class="icon">🕔</span><div>Pôr do sol em novembro: <strong>~17h00</strong>. Planeje atrações externas para antes disso.</div></div>
+      <div class="tip-item"><span class="icon">🧥</span><div>Roupas essenciais: base térmica, lã intermediária, casaco impermeável/windproof, luvas, gorro. Camadas, camadas, camadas.</div></div>
+      <div class="tip-item"><span class="icon">💵</span><div>A Islândia é cara. Compras em supermercado (Bonus, Krónan) economizam muito. Evite restaurantes turísticos.</div></div>
+      <div class="tip-item"><span class="icon">⛽</span><div>Abasteça sempre que possível — postos de gasolina ficam escassos no interior. Cartão funciona em postos automáticos.</div></div>
+      <div class="tip-item"><span class="icon">🏊</span><div>Piscinas geotermais públicas (sundlaug) são uma tradição islandesa e muito baratas — experimente em Akureyri ou Reykjavik.</div></div>
+      <div class="tip-item"><span class="icon">🌊</span><div><strong>Reynisfjara Beach</strong>: NUNCA vire as costas para o mar. Ondas traiçoeiras matam turistas todos os anos.</div></div>
+      <div class="tip-item"><span class="icon">📡</span><div>Sinal de celular pode falhar no interior. Baixe mapas offline (Google Maps ou Maps.me) com a rota da Islândia.</div></div>
+    </div>
+  </div>
+</div>
+
+<button id="scrollTop">↑</button>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+
+  // ── Section tabs ──
+  var sectionIds = ['overview','london1','iceland','london2','reserves','tips'];
+
+  document.querySelectorAll('.tab-btn').forEach(function(btn, i) {
+    btn.addEventListener('click', function() {
+      showSection(sectionIds[i], i);
+    });
+  });
+
+  function showSection(id, btnIndex) {
+    document.querySelectorAll('.section').forEach(function(s) { s.classList.remove('active'); });
+    document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
+    document.getElementById(id).classList.add('active');
+    document.querySelectorAll('.tab-btn')[btnIndex].classList.add('active');
+    window.scrollTo(0, 0);
+  }
+
+  // ── Day card accordions ──
+  document.querySelectorAll('.day-header').forEach(function(header) {
+    header.addEventListener('click', function() {
+      header.closest('.day-card').classList.toggle('open');
+    });
+  });
+
+  // ── Inner tabs (Programa / To-do) ──
+  document.querySelectorAll('.inner-tab').forEach(function(tab) {
+    tab.addEventListener('click', function() {
+      var card = tab.closest('.day-card');
+      var panelId = tab.getAttribute('data-panel');
+      card.querySelectorAll('.inner-tab').forEach(function(t) { t.classList.remove('active'); });
+      card.querySelectorAll('.inner-panel').forEach(function(p) { p.classList.remove('active'); });
+      tab.classList.add('active');
+      document.getElementById(panelId).classList.add('active');
+    });
+  });
+
+  // ── Todo checkboxes ──
+  document.querySelectorAll('.todo-checkbox').forEach(function(el) {
+    el.addEventListener('click', function() {
+      el.classList.toggle('checked');
+      if (el.classList.contains('checked')) {
+        el.textContent = '✓';
+        if (el.nextElementSibling) el.nextElementSibling.classList.add('done');
+      } else {
+        el.textContent = '';
+        if (el.nextElementSibling) el.nextElementSibling.classList.remove('done');
+      }
+      saveTodos();
+    });
+  });
+
+  function saveTodos() {
+    var states = [];
+    document.querySelectorAll('.todo-checkbox').forEach(function(el) {
+      states.push(el.classList.contains('checked') ? '1' : '0');
+    });
+    try { localStorage.setItem('iceland_todos', states.join(',')); } catch(e) {}
+  }
+
+  function loadTodos() {
+    try {
+      var saved = localStorage.getItem('iceland_todos');
+      if (!saved) return;
+      var states = saved.split(',');
+      document.querySelectorAll('.todo-checkbox').forEach(function(el, i) {
+        if (states[i] === '1') {
+          el.classList.add('checked');
+          el.textContent = '✓';
+          if (el.nextElementSibling) el.nextElementSibling.classList.add('done');
+        }
+      });
+    } catch(e) {}
+  }
+
+  // ── Scroll to top ──
+  var scrollBtn = document.getElementById('scrollTop');
+  scrollBtn.addEventListener('click', function() { window.scrollTo(0, 0); });
+  window.addEventListener('scroll', function() {
+    scrollBtn.style.display = window.scrollY > 300 ? 'flex' : 'none';
+  });
+
+  loadTodos();
+});
+</script>
+</body>
+</html>
