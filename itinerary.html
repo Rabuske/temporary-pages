@@ -320,8 +320,32 @@
   .tip-item:last-child { border-bottom: none; }
   .tip-item .icon { font-size: 18px; flex-shrink: 0; }
 
-  /* SCROLLTOP */
-  #scrollTop {
+  /* FOOD CARDS */
+  .food-section-title {
+    font-size: 13px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.8px; color: var(--subtext);
+    margin: 20px 0 10px;
+  }
+  .food-card {
+    background: white; border-radius: var(--radius);
+    box-shadow: var(--shadow); margin-bottom: 14px; overflow: hidden;
+  }
+  .food-card-header {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 14px; border-bottom: 1px solid var(--border);
+  }
+  .food-card-header .food-emoji { font-size: 26px; flex-shrink: 0; }
+  .food-card-header .food-info { flex: 1; }
+  .food-name { font-weight: 700; font-size: 15px; }
+  .food-when { font-size: 12px; color: var(--subtext); margin-top: 1px; }
+  .food-body { padding: 10px 14px; font-size: 13px; color: var(--subtext); line-height: 1.5; }
+  .food-body strong { color: var(--text); }
+  .food-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 8px; }
+  .food-tag-london { background: var(--london-light); color: var(--london); border-radius: 4px; padding: 2px 7px; font-size: 11px; font-weight: 700; }
+  .food-tag-iceland { background: var(--iceland-light); color: var(--iceland); border-radius: 4px; padding: 2px 7px; font-size: 11px; font-weight: 700; }
+  .food-tag-book { background: #ffecb3; color: #e65100; border-radius: 4px; padding: 2px 7px; font-size: 11px; font-weight: 700; }
+  .food-tag-free { background: var(--london-light); color: var(--london); border-radius: 4px; padding: 2px 7px; font-size: 11px; font-weight: 700; }
+  .food-tag-must { background: #fce4ec; color: #c62828; border-radius: 4px; padding: 2px 7px; font-size: 11px; font-weight: 700; }
     position: fixed; bottom: 24px; right: 20px;
     background: var(--iceland); color: white;
     border: none; border-radius: 50%;
@@ -346,6 +370,7 @@
   <button class="tab-btn">🇮🇸 Islândia</button>
   <button class="tab-btn london">🇬🇧 Londres II</button>
   <button class="tab-btn">📋 Reservas</button>
+  <button class="tab-btn">🍽️ Gastronomia</button>
   <button class="tab-btn">💡 Dicas</button>
 </div>
 
@@ -399,7 +424,7 @@
 <!-- ===================== LONDON LEG 1 ===================== -->
 <div id="london1" class="section">
   <p class="section-label">🇬🇧 Londres — 1ª Etapa (24–27 Out)</p>
-  <div class="hotel-badge"><span class="hotel-icon">🏨</span><div class="hotel-info"><div class="hotel-name">Pembridge Palace Hotel</div><div class="hotel-dates">Check-in: 24 Out (manhã) · Check-out: 28 Out ~04h30</div></div></div>
+  <div class="hotel-badge"><span class="hotel-icon">🏨</span><div class="hotel-info"><div class="hotel-name">Pembridge Palace Hotel <a href="https://www.google.com/maps/search/?api=1&query=Pembridge+Palace+Hotel+London" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div><div class="hotel-dates">Check-in: 24 Out (manhã) · Check-out: 28 Out ~04h30</div></div></div>
 
   <!-- DAY 1 -->
   <div class="day-card london" id="card-d1">
@@ -421,8 +446,8 @@
         <div class="time-block">
           <span class="time-label">Manhã</span>
           <div class="activity"><span class="activity-icon">🏨</span><div class="activity-content"><div class="activity-name">Check-in Pembridge Palace</div><div class="activity-detail">Pode não ter quarto disponível cedo — deixe as malas e vá explorar</div></div></div>
-          <div class="activity"><span class="activity-icon">🛍️</span><div class="activity-content"><div class="activity-name">Portobello Road Market</div><div class="activity-detail">5 min a pé do hotel · só às SÁBADOS · antigos, comida, moda<br><span class="tag tag-tip">Só aos sábados — não perca!</span></div></div></div>
-          <div class="activity"><span class="activity-icon">🏘️</span><div class="activity-content"><div class="activity-name">Passeio por Notting Hill</div><div class="activity-detail">Casinhas coloridas, cafés charmosos, ruas fotogênicas</div></div></div>
+          <div class="activity"><span class="activity-icon">🛍️</span><div class="activity-content"><div class="activity-name">Portobello Road Market <a href="https://www.google.com/maps/search/?api=1&query=Portobello+Road+Market+London" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div><div class="activity-detail">5 min a pé do hotel · só às SÁBADOS · antigos, comida, moda<br><span class="tag tag-tip">Só aos sábados — não perca!</span></div></div></div>
+          <div class="activity"><span class="activity-icon">🏘️</span><div class="activity-content"><div class="activity-name">Passeio por Notting Hill <a href="https://www.google.com/maps/search/?api=1&query=Notting+Hill+London" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div><div class="activity-detail">Casinhas coloridas, cafés charmosos, ruas fotogênicas</div></div></div>
         </div>
         <div class="time-block">
           <span class="time-label">Tarde</span>
@@ -430,7 +455,7 @@
         </div>
         <div class="time-block">
           <span class="time-label">Noite</span>
-          <div class="activity"><span class="activity-icon">🌳</span><div class="activity-content"><div class="activity-name">Hyde Park</div><div class="activity-detail">Passeio leve próximo ao hotel</div></div></div>
+          <div class="activity"><span class="activity-icon">🌳</span><div class="activity-content"><div class="activity-name">Hyde Park <a href="https://www.google.com/maps/search/?api=1&query=Hyde+Park+London" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div><div class="activity-detail">Passeio leve próximo ao hotel</div></div></div>
           <div class="activity"><span class="activity-icon">🍺</span><div class="activity-content"><div class="activity-name">Jantar em pub de Notting Hill</div><div class="activity-detail">Fish & chips, cerveja local</div></div></div>
         </div>
       </div>
@@ -464,20 +489,20 @@
         <div class="tip-box">🎖️ Troca da Guarda (Changing of the Guard) é aos domingos — chegue às <strong>10h30</strong>. É grátis!</div>
         <div class="time-block">
           <span class="time-label">Manhã</span>
-          <div class="activity"><span class="activity-icon">👑</span><div class="activity-content"><div class="activity-name">Palácio de Buckingham</div><div class="activity-detail">Troca da Guarda ~11h00 · Chegar às 10h30<br><span class="tag tag-free">Grátis</span></div></div></div>
-          <div class="activity"><span class="activity-icon">🌿</span><div class="activity-content"><div class="activity-name">St. James's Park</div><div class="activity-detail">Caminhada até Westminster<br><span class="tag tag-free">Grátis</span></div></div></div>
-          <div class="activity"><span class="activity-icon">🏛️</span><div class="activity-content"><div class="activity-name">Palácio de Westminster + Big Ben</div><div class="activity-detail">Exterior e fotos · Westminster Bridge<br><span class="tag tag-free">Grátis (exterior)</span></div></div></div>
-          <div class="activity"><span class="activity-icon">⛪</span><div class="activity-content"><div class="activity-name">Abadia de Westminster</div><div class="activity-detail">Opcional — cobrado · Reserve online<br><span class="tag tag-book">Reservar online</span></div></div></div>
+          <div class="activity"><span class="activity-icon">👑</span><div class="activity-content"><div class="activity-name">Palácio de Buckingham <a href="https://www.google.com/maps/search/?api=1&query=Buckingham+Palace+London" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div><div class="activity-detail">Troca da Guarda ~11h00 · Chegar às 10h30<br><span class="tag tag-free">Grátis</span></div></div></div>
+          <div class="activity"><span class="activity-icon">🌿</span><div class="activity-content"><div class="activity-name">St. James's Park <a href="https://www.google.com/maps/search/?api=1&query=St+James+Park+London" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div><div class="activity-detail">Caminhada até Westminster<br><span class="tag tag-free">Grátis</span></div></div></div>
+          <div class="activity"><span class="activity-icon">🏛️</span><div class="activity-content"><div class="activity-name">Palácio de Westminster + Big Ben <a href="https://www.google.com/maps/search/?api=1&query=Palace+of+Westminster+London" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div><div class="activity-detail">Exterior e fotos · Westminster Bridge<br><span class="tag tag-free">Grátis (exterior)</span></div></div></div>
+          <div class="activity"><span class="activity-icon">⛪</span><div class="activity-content"><div class="activity-name">Abadia de Westminster <a href="https://www.google.com/maps/search/?api=1&query=Westminster+Abbey+London" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div><div class="activity-detail">Opcional — cobrado · Reserve online<br><span class="tag tag-book">Reservar online</span></div></div></div>
         </div>
         <div class="time-block">
           <span class="time-label">Tarde</span>
-          <div class="activity"><span class="activity-icon">🎨</span><div class="activity-content"><div class="activity-name">Tate Modern</div><div class="activity-detail">Arte moderna gratuita · Terraço com vista incrível do Tâmisa<br><span class="tag tag-free">Grátis</span> <span class="tag tag-tip">Adicionado ao plano!</span></div></div></div>
-          <div class="activity"><span class="activity-icon">🎭</span><div class="activity-content"><div class="activity-name">Shakespeare's Globe Theatre</div><div class="activity-detail">Passagem ou tour curto</div></div></div>
-          <div class="activity"><span class="activity-icon">🎡</span><div class="activity-content"><div class="activity-name">London Eye</div><div class="activity-detail">Opcional — Reserve online se quiser subir<br><span class="tag tag-book">Reservar online</span> <span class="tag tag-optional">Opcional</span></div></div></div>
+          <div class="activity"><span class="activity-icon">🎨</span><div class="activity-content"><div class="activity-name">Tate Modern <a href="https://www.google.com/maps/search/?api=1&query=Tate+Modern+London" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div><div class="activity-detail">Arte moderna gratuita · Terraço com vista incrível do Tâmisa<br><span class="tag tag-free">Grátis</span> <span class="tag tag-tip">Adicionado ao plano!</span></div></div></div>
+          <div class="activity"><span class="activity-icon">🎭</span><div class="activity-content"><div class="activity-name">Shakespeare's Globe Theatre <a href="https://www.google.com/maps/search/?api=1&query=Shakespeares+Globe+Theatre+London" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div><div class="activity-detail">Passagem ou tour curto</div></div></div>
+          <div class="activity"><span class="activity-icon">🎡</span><div class="activity-content"><div class="activity-name">London Eye <a href="https://www.google.com/maps/search/?api=1&query=London+Eye+London" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div><div class="activity-detail">Opcional — Reserve online se quiser subir<br><span class="tag tag-book">Reservar online</span> <span class="tag tag-optional">Opcional</span></div></div></div>
         </div>
         <div class="time-block">
           <span class="time-label">Noite</span>
-          <div class="activity"><span class="activity-icon">🛒</span><div class="activity-content"><div class="activity-name">Borough Market</div><div class="activity-detail">Fecha ~17h aos domingos — vá antes do anoitecer</div></div></div>
+          <div class="activity"><span class="activity-icon">🛒</span><div class="activity-content"><div class="activity-name">Borough Market <a href="https://www.google.com/maps/search/?api=1&query=Borough+Market+London" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div><div class="activity-detail">Fecha ~17h aos domingos — vá antes do anoitecer</div></div></div>
           <div class="activity"><span class="activity-icon">🍽️</span><div class="activity-content"><div class="activity-name">Jantar no South Bank</div><div class="activity-detail">Muitas opções ao longo do rio</div></div></div>
         </div>
       </div>
@@ -509,22 +534,22 @@
       <div id="d3-prog" class="inner-panel active">
         <div class="time-block">
           <span class="time-label">Manhã</span>
-          <div class="activity"><span class="activity-icon">🏰</span><div class="activity-content"><div class="activity-name">Torre de Londres</div><div class="activity-detail">Abre às 09h00 · Jóias da Coroa, história medieval<br><span class="tag tag-book">Reservar com antecedência!</span></div></div></div>
-          <div class="activity"><span class="activity-icon">🌉</span><div class="activity-content"><div class="activity-name">Tower Bridge</div><div class="activity-detail">Cruzar a ponte · Exterior grátis<br><span class="tag tag-free">Grátis (exterior)</span></div></div></div>
+          <div class="activity"><span class="activity-icon">🏰</span><div class="activity-content"><div class="activity-name">Torre de Londres <a href="https://www.google.com/maps/search/?api=1&query=Tower+of+London" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div><div class="activity-detail">Abre às 09h00 · Jóias da Coroa, história medieval<br><span class="tag tag-book">Reservar com antecedência!</span></div></div></div>
+          <div class="activity"><span class="activity-icon">🌉</span><div class="activity-content"><div class="activity-name">Tower Bridge <a href="https://www.google.com/maps/search/?api=1&query=Tower+Bridge+London" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div><div class="activity-detail">Cruzar a ponte · Exterior grátis<br><span class="tag tag-free">Grátis (exterior)</span></div></div></div>
         </div>
         <div class="time-block">
           <span class="time-label">Meio-dia</span>
-          <div class="activity"><span class="activity-icon">🏛️</span><div class="activity-content"><div class="activity-name">Leadenhall Market</div><div class="activity-detail">15 min a pé da Tower Bridge · Mercado vitoriano coberto · Diagon Alley do Harry Potter<br><span class="tag tag-tip">Adicionado ao plano!</span></div></div></div>
-          <div class="activity"><span class="activity-icon">⛪</span><div class="activity-content"><div class="activity-name">Catedral de St. Paul's</div><div class="activity-detail">Cúpula icônica · Galeria dos Sussurros (Whispering Gallery)<br><span class="tag tag-book">Reserve entrada online</span> <span class="tag tag-tip">Adicionado ao plano!</span></div></div></div>
+          <div class="activity"><span class="activity-icon">🏛️</span><div class="activity-content"><div class="activity-name">Leadenhall Market <a href="https://www.google.com/maps/search/?api=1&query=Leadenhall+Market+London" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div><div class="activity-detail">15 min a pé da Tower Bridge · Mercado vitoriano coberto · Diagon Alley do Harry Potter<br><span class="tag tag-tip">Adicionado ao plano!</span></div></div></div>
+          <div class="activity"><span class="activity-icon">⛪</span><div class="activity-content"><div class="activity-name">Catedral de St. Paul's <a href="https://www.google.com/maps/search/?api=1&query=St+Pauls+Cathedral+London" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div><div class="activity-detail">Cúpula icônica · Galeria dos Sussurros (Whispering Gallery)<br><span class="tag tag-book">Reserve entrada online</span> <span class="tag tag-tip">Adicionado ao plano!</span></div></div></div>
         </div>
         <div class="time-block">
           <span class="time-label">Tarde</span>
-          <div class="activity"><span class="activity-icon">🎨</span><div class="activity-content"><div class="activity-name">Brick Lane</div><div class="activity-detail">Arte de rua, curry, mercado de segunda-mão</div></div></div>
-          <div class="activity"><span class="activity-icon">🏙️</span><div class="activity-content"><div class="activity-name">Shoreditch</div><div class="activity-detail">Bairro criativo, street art<br><span class="tag tag-optional">Opcional</span></div></div></div>
+          <div class="activity"><span class="activity-icon">🎨</span><div class="activity-content"><div class="activity-name">Brick Lane <a href="https://www.google.com/maps/search/?api=1&query=Brick+Lane+London" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div><div class="activity-detail">Arte de rua, curry, mercado de segunda-mão</div></div></div>
+          <div class="activity"><span class="activity-icon">🏙️</span><div class="activity-content"><div class="activity-name">Shoreditch <a href="https://www.google.com/maps/search/?api=1&query=Shoreditch+London" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div><div class="activity-detail">Bairro criativo, street art<br><span class="tag tag-optional">Opcional</span></div></div></div>
         </div>
         <div class="time-block">
           <span class="time-label">Noite</span>
-          <div class="activity"><span class="activity-icon">🌆</span><div class="activity-content"><div class="activity-name">Sky Garden ou The Shard</div><div class="activity-detail">Sky Garden = grátis mas precisa reservar · The Shard = pago<br><span class="tag tag-book">Sky Garden: reservar online (grátis)</span></div></div></div>
+          <div class="activity"><span class="activity-icon">🌆</span><div class="activity-content"><div class="activity-name">Sky Garden ou The Shard <a href="https://www.google.com/maps/search/?api=1&query=Sky+Garden+London" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div><div class="activity-detail">Sky Garden = grátis mas precisa reservar · The Shard = pago<br><span class="tag tag-book">Sky Garden: reservar online (grátis)</span></div></div></div>
         </div>
       </div>
       <div id="d3-todo" class="inner-panel">
@@ -553,25 +578,26 @@
         <div class="inner-tab" data-panel="d4-todo">✅ To-do</div>
       </div>
       <div id="d4-prog" class="inner-panel active">
-        <div class="tip-box">💡 Não tente fazer 3 museus em um dia. O British Museum e National Gallery já são mais do que suficientes.</div>
+        <div class="tip-box">💡 British Museum de manhã + Natural History Museum à tarde — ambos gratuitos e próximos. National Gallery fica para o Dia 14 (último dia) como backup.</div>
         <div class="time-block">
           <span class="time-label">Manhã</span>
-          <div class="activity"><span class="activity-icon">🏛️</span><div class="activity-content"><div class="activity-name">British Museum</div><div class="activity-detail">Abre às 10h00 · Reserve slot de entrada · Plano 2-3h mínimo<br><span class="tag tag-free">Grátis</span> <span class="tag tag-book">Reservar slot online</span></div></div></div>
+          <div class="activity"><span class="activity-icon">🏛️</span><div class="activity-content"><div class="activity-name">British Museum <a href="https://www.google.com/maps/search/?api=1&query=British+Museum+London" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div><div class="activity-detail">Abre às 10h00 · Reserve slot de entrada · Plano 2-3h mínimo<br><span class="tag tag-free">Grátis</span> <span class="tag tag-book">Reservar slot online</span></div></div></div>
         </div>
         <div class="time-block">
           <span class="time-label">Meio-dia</span>
-          <div class="activity"><span class="activity-icon">🎪</span><div class="activity-content"><div class="activity-name">Covent Garden</div><div class="activity-detail">Almoço, artistas de rua, lojas</div></div></div>
-          <div class="activity"><span class="activity-icon">🖼️</span><div class="activity-content"><div class="activity-name">National Gallery</div><div class="activity-detail">Trafalgar Square · Uma das maiores coleções de arte do mundo<br><span class="tag tag-free">Grátis</span> <span class="tag tag-tip">Adicionado ao plano!</span></div></div></div>
-          <div class="activity"><span class="activity-icon">💡</span><div class="activity-content"><div class="activity-name">Piccadilly Circus</div><div class="activity-detail">Passagem rápida para fotos</div></div></div>
+          <div class="activity"><span class="activity-icon">🎪</span><div class="activity-content"><div class="activity-name">Covent Garden <a href="https://www.google.com/maps/search/?api=1&query=Covent+Garden+London" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div><div class="activity-detail">Almoço, artistas de rua, lojas</div></div></div>
+          <div class="activity"><span class="activity-icon">💡</span><div class="activity-content"><div class="activity-name">Piccadilly Circus <a href="https://www.google.com/maps/search/?api=1&query=Piccadilly+Circus+London" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div><div class="activity-detail">Passagem rápida para fotos · no caminho para South Kensington</div></div></div>
         </div>
         <div class="time-block">
-          <span class="time-label">Tarde</span>
-          <div class="activity"><span class="activity-icon">🛍️</span><div class="activity-content"><div class="activity-name">Oxford Street</div><div class="activity-detail">Compras, H&amp;M, Primark, lojas britânicas</div></div></div>
+          <span class="time-label">Tarde — South Kensington (perto do hotel!)</span>
+          <div class="activity"><span class="activity-icon">🦕</span><div class="activity-content"><div class="activity-name">Museu de História Natural <a href="https://www.google.com/maps/search/?api=1&query=Natural+History+Museum+London" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div><div class="activity-detail">South Kensington · Dinossauros, baleia azul, coleções incríveis · ~20 min do hotel<br><span class="tag tag-free">Grátis</span> <span class="tag tag-tip">✨ Adicionado ao plano!</span></div></div></div>
+          <div class="activity"><span class="activity-icon">🎨</span><div class="activity-content"><div class="activity-name">V&A Museum <a href="https://www.google.com/maps/search/?api=1&query=Victoria+and+Albert+Museum+London" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div><div class="activity-detail">Ao lado do NHM · Arte e design · Opcional se já cansado<br><span class="tag tag-free">Grátis</span> <span class="tag tag-optional">Opcional</span></div></div></div>
+          <div class="activity"><span class="activity-icon">🛍️</span><div class="activity-content"><div class="activity-name">Oxford Street <a href="https://www.google.com/maps/search/?api=1&query=Oxford+Street+London" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div><div class="activity-detail">Compras, H&amp;M, Primark, lojas britânicas<br><span class="tag tag-optional">Opcional — troque pelo V&A se preferir</span></div></div></div>
         </div>
         <div class="time-block">
           <span class="time-label">Noite</span>
-          <div class="activity"><span class="activity-icon">🎸</span><div class="activity-content"><div class="activity-name">Camden Town / Camden Market</div><div class="activity-detail">Comida diversificada, música ao vivo, cultura alternativa</div></div></div>
-          <div class="activity"><span class="activity-icon">🎵</span><div class="activity-content"><div class="activity-name">Abbey Road</div><div class="activity-detail">Fotos na faixa de pedestres · 10 min de Camden<br><span class="tag tag-free">Grátis</span></div></div></div>
+          <div class="activity"><span class="activity-icon">🎸</span><div class="activity-content"><div class="activity-name">Camden Town / Camden Market <a href="https://www.google.com/maps/search/?api=1&query=Camden+Market+London" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div><div class="activity-detail">Comida diversificada, música ao vivo, cultura alternativa</div></div></div>
+          <div class="activity"><span class="activity-icon">🎵</span><div class="activity-content"><div class="activity-name">Abbey Road <a href="https://www.google.com/maps/search/?api=1&query=Abbey+Road+London" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div><div class="activity-detail">Fotos na faixa de pedestres · 10 min de Camden<br><span class="tag tag-free">Grátis</span></div></div></div>
         </div>
       </div>
       <div id="d4-todo" class="inner-panel">
@@ -608,7 +634,7 @@
       </div>
       <div id="d5-prog" class="inner-panel active">
         <div class="warn-box"><strong>⏰ Voo às 07h30 — sair do hotel às 04h30!</strong>Aeroporto Heathrow: chegar com pelo menos 2h30 de antecedência.</div>
-        <div class="hotel-badge"><span class="hotel-icon">🏨</span><div class="hotel-info"><div class="hotel-name">Center Hotels Laugavegur</div><div class="hotel-dates">Check-in: 28 Out (tarde)</div></div></div>
+        <div class="hotel-badge"><span class="hotel-icon">🏨</span><div class="hotel-info"><div class="hotel-name">Center Hotels Laugavegur <a href="https://www.google.com/maps/search/?api=1&query=Center+Hotels+Laugavegur+Reykjavik" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div><div class="hotel-dates">Check-in: 28 Out (tarde)</div></div></div>
         <div class="time-block">
           <span class="time-label">Manhã — viagem</span>
           <div class="activity"><span class="activity-icon">⏰</span><div class="activity-content"><div class="activity-name">04h00 — Acordar</div><div class="activity-detail">Checkout Pembridge Palace Hotel</div></div></div>
@@ -617,14 +643,14 @@
         </div>
         <div class="time-block">
           <span class="time-label">Tarde — Islândia!</span>
-          <div class="activity"><span class="activity-icon">🏊</span><div class="activity-content"><div class="activity-name">12h30–15h00 — Blue Lagoon</div><div class="activity-detail">30 min de carro do KEF · Reserva obrigatória antecipada<br><span class="tag tag-book">Reservar online com antecedência!</span></div></div></div>
+          <div class="activity"><span class="activity-icon">🏊</span><div class="activity-content"><div class="activity-name">12h30–15h00 — Blue Lagoon <a href="https://www.google.com/maps/search/?api=1&query=Blue+Lagoon+Iceland" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div><div class="activity-detail">30 min de carro do KEF · Reserva obrigatória antecipada<br><span class="tag tag-book">Reservar online com antecedência!</span></div></div></div>
           <div class="activity"><span class="activity-icon">🏙️</span><div class="activity-content"><div class="activity-name">~16h30 — Check-in em Reykjavik</div><div class="activity-detail">Center Hotels Laugavegur</div></div></div>
         </div>
         <div class="time-block">
           <span class="time-label">Noite — Reykjavik</span>
-          <div class="activity"><span class="activity-icon">⛪</span><div class="activity-content"><div class="activity-name">Hallgrímskirkja</div><div class="activity-detail">Igreja icônica · Subir a torre para vista panorâmica</div></div></div>
-          <div class="activity"><span class="activity-icon">🌈</span><div class="activity-content"><div class="activity-name">Laugavegur + Rainbow Street</div><div class="activity-detail">Rua principal · Lojas, cafés, restaurantes</div></div></div>
-          <div class="activity"><span class="activity-icon">🎼</span><div class="activity-content"><div class="activity-name">Harpa Concert Hall + Sun Voyager</div><div class="activity-detail">Porto antigo · Arquitetura impressionante</div></div></div>
+          <div class="activity"><span class="activity-icon">⛪</span><div class="activity-content"><div class="activity-name">Hallgrímskirkja <a href="https://www.google.com/maps/search/?api=1&query=Hallgrimskirkja+Reykjavik" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div><div class="activity-detail">Igreja icônica · Subir a torre para vista panorâmica</div></div></div>
+          <div class="activity"><span class="activity-icon">🌈</span><div class="activity-content"><div class="activity-name">Laugavegur + Rainbow Street <a href="https://www.google.com/maps/search/?api=1&query=Laugavegur+Reykjavik+Iceland" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div><div class="activity-detail">Rua principal · Lojas, cafés, restaurantes</div></div></div>
+          <div class="activity"><span class="activity-icon">🎼</span><div class="activity-content"><div class="activity-name">Harpa Concert Hall + Sun Voyager <a href="https://www.google.com/maps/search/?api=1&query=Harpa+Concert+Hall+Reykjavik" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div><div class="activity-detail">Porto antigo · Arquitetura impressionante</div></div></div>
         </div>
       </div>
       <div id="d5-todo" class="inner-panel">
@@ -654,21 +680,21 @@
         <div class="inner-tab" data-panel="d6-todo">✅ To-do</div>
       </div>
       <div id="d6-prog" class="inner-panel active">
-        <div class="hotel-badge"><span class="hotel-icon">🏨</span><div class="hotel-info"><div class="hotel-name">Hótel Vesturland</div><div class="hotel-dates">Borgarnes · Check-in ~17h–18h</div></div></div>
+        <div class="hotel-badge"><span class="hotel-icon">🏨</span><div class="hotel-info"><div class="hotel-name">Hótel Vesturland <a href="https://www.google.com/maps/search/?api=1&query=Hotel+Vesturland+Borgarnes+Iceland" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div><div class="hotel-dates">Borgarnes · Check-in ~17h–18h</div></div></div>
         <div class="drive-summary"><span class="drive-chip">🚗 ~297 km total</span><span class="drive-chip">⏱️ ~6h com paradas</span><span class="drive-chip">🕗 Saída 08h00</span></div>
         <div class="time-block">
           <span class="time-label">Rota do dia</span>
-          <div class="activity"><span class="activity-icon">🌋</span><div class="activity-content"><div class="activity-name">Þingvellir National Park</div><div class="activity-detail">~45 min de Reykjavik · Placas tectônicas visíveis · Parlamento histórico<br><span class="tag tag-free">Parque Nacional</span></div></div></div>
-          <div class="activity"><span class="activity-icon">💦</span><div class="activity-content"><div class="activity-name">Geysir / Strokkur</div><div class="activity-detail">~1h de Þingvellir · Entra em erupção a cada 5-10 minutos<br><span class="tag tag-free">Grátis</span></div></div></div>
-          <div class="activity"><span class="activity-icon">🌊</span><div class="activity-content"><div class="activity-name">Gullfoss</div><div class="activity-detail">~10 min de Geysir · Cachoeira de dois níveis, muito poderosa</div></div></div>
-          <div class="activity"><span class="activity-icon">🔵</span><div class="activity-content"><div class="activity-name">Kerið Crater</div><div class="activity-detail">~45 min de volta · Cratera vulcânica com lago · Pequena taxa de entrada</div></div></div>
-          <div class="activity"><span class="activity-icon">🍅</span><div class="activity-content"><div class="activity-name">Restaurante Fridheimar (almoço)</div><div class="activity-detail">Entre Geysir e Gullfoss · Estufa de tomates, sopa e hambúrguer únicos<br><span class="tag tag-book">Reservar com antecedência!</span></div></div></div>
-          <div class="activity"><span class="activity-icon">🏘️</span><div class="activity-content"><div class="activity-name">Borgarnes Settlement Center</div><div class="activity-detail">Opcional · História dos primeiros colonizadores islandeses<br><span class="tag tag-optional">Opcional</span></div></div></div>
+          <div class="activity"><span class="activity-icon">🌋</span><div class="activity-content"><div class="activity-name">Þingvellir National Park <a href="https://www.google.com/maps/search/?api=1&query=Thingvellir+National+Park+Iceland" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div><div class="activity-detail">~45 min de Reykjavik · Placas tectônicas visíveis · Parlamento histórico<br><span class="tag tag-free">Parque Nacional</span></div></div></div>
+          <div class="activity"><span class="activity-icon">💦</span><div class="activity-content"><div class="activity-name">Geysir / Strokkur <a href="https://www.google.com/maps/search/?api=1&query=Geysir+Iceland" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div><div class="activity-detail">~1h de Þingvellir · Entra em erupção a cada 5-10 minutos<br><span class="tag tag-free">Grátis</span></div></div></div>
+          <div class="activity"><span class="activity-icon">🌊</span><div class="activity-content"><div class="activity-name">Gullfoss <a href="https://www.google.com/maps/search/?api=1&query=Gullfoss+Iceland" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div><div class="activity-detail">~10 min de Geysir · Cachoeira de dois níveis, muito poderosa</div></div></div>
+          <div class="activity"><span class="activity-icon">🔵</span><div class="activity-content"><div class="activity-name">Kerið Crater <a href="https://www.google.com/maps/search/?api=1&query=Kerid+Crater+Iceland" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div><div class="activity-detail">~45 min de volta · Cratera vulcânica com lago · Pequena taxa de entrada</div></div></div>
+          <div class="activity"><span class="activity-icon">🍅</span><div class="activity-content"><div class="activity-name">Restaurante Fridheimar (almoço 13h00–14h00) <a href="https://www.google.com/maps/search/?api=1&query=Fridheimar+Iceland" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div><div class="activity-detail">Entre Geysir e Gullfoss · Estufa de tomates, sopa e hambúrguer únicos<br><span class="tag tag-fixed">✅ Reserva #9490167 confirmada!</span></div></div></div>
+          <div class="activity"><span class="activity-icon">🏘️</span><div class="activity-content"><div class="activity-name">Borgarnes Settlement Center <a href="https://www.google.com/maps/search/?api=1&query=Borgarnes+Settlement+Center+Iceland" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div><div class="activity-detail">Opcional · História dos primeiros colonizadores islandeses<br><span class="tag tag-optional">Opcional</span></div></div></div>
         </div>
       </div>
       <div id="d6-todo" class="inner-panel">
         <ul class="todo-list">
-          <li class="todo-item"><div class="todo-checkbox"></div><div><div class="todo-text">Reservar almoço no Restaurante Fridheimar</div></div><span class="todo-urgency urgency-now">Urgente!</span></li>
+          <li class="todo-item"><div class="todo-checkbox"></div><div><div class="todo-text">Fridheimar: reserva confirmada ✅ #9490167 · 29 Out 13h00–14h00</div></div><span class="todo-urgency urgency-before">Confirmado</span></li>
           <li class="todo-item"><div class="todo-checkbox"></div><div><div class="todo-text">Sair de Reykjavik às 08h00</div></div><span class="todo-urgency urgency-before">No dia</span></li>
           <li class="todo-item"><div class="todo-checkbox"></div><div><div class="todo-text">Verificar condições de estrada (road.is)</div></div><span class="todo-urgency urgency-before">Na manhã</span></li>
         </ul>
@@ -692,14 +718,14 @@
         <div class="inner-tab" data-panel="d7-todo">✅ To-do</div>
       </div>
       <div id="d7-prog" class="inner-panel active">
-        <div class="hotel-badge"><span class="hotel-icon">🏨</span><div class="hotel-info"><div class="hotel-name">Centrum Hotel</div><div class="hotel-dates">Akureyri · Check-in ~15h–16h</div></div></div>
+        <div class="hotel-badge"><span class="hotel-icon">🏨</span><div class="hotel-info"><div class="hotel-name">Centrum Hotel <a href="https://www.google.com/maps/search/?api=1&query=Centrum+Hotel+Akureyri+Iceland" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div><div class="hotel-dates">Akureyri · Check-in ~15h–16h</div></div></div>
         <div class="drive-summary"><span class="drive-chip">🚗 ~313 km total</span><span class="drive-chip">⏱️ ~5h com paradas</span><span class="drive-chip">🕗 Saída 08h00</span></div>
         <div class="time-block">
           <span class="time-label">Rota do dia — NOVIDADES!</span>
-          <div class="activity"><span class="activity-icon">💧</span><div class="activity-content"><div class="activity-name">Hraunfossar & Barnafoss</div><div class="activity-detail">~40 min de Borgarnes · Cachoeiras brotando de campo de lava — ÚNICO no mundo<br><span class="tag tag-tip">✨ Adicionado ao plano!</span></div></div></div>
-          <div class="activity"><span class="activity-icon">♨️</span><div class="activity-content"><div class="activity-name">Deildartunguhver</div><div class="activity-detail">~10 min de Hraunfossar · A fonte termal mais poderosa da Europa<br><span class="tag tag-tip">✨ Adicionado ao plano!</span></div></div></div>
-          <div class="activity"><span class="activity-icon">🌊</span><div class="activity-content"><div class="activity-name">Goðafoss — "Cachoeira dos Deuses"</div><div class="activity-detail">~20 min antes de Akureyri · Uma das mais fotogênicas da Islândia<br><span class="tag tag-tip">✨ Adicionado ao plano!</span></div></div></div>
-          <div class="activity"><span class="activity-icon">🏙️</span><div class="activity-content"><div class="activity-name">Akureyri — chegar ~15h–16h</div><div class="activity-detail">Akureyrarkirkja (igreja icônica) · Centro histórico · Porto</div></div></div>
+          <div class="activity"><span class="activity-icon">💧</span><div class="activity-content"><div class="activity-name">Hraunfossar & Barnafoss <a href="https://www.google.com/maps/search/?api=1&query=Hraunfossar+Iceland" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div><div class="activity-detail">~40 min de Borgarnes · Cachoeiras brotando de campo de lava — ÚNICO no mundo<br><span class="tag tag-tip">✨ Adicionado ao plano!</span></div></div></div>
+          <div class="activity"><span class="activity-icon">♨️</span><div class="activity-content"><div class="activity-name">Deildartunguhver <a href="https://www.google.com/maps/search/?api=1&query=Deildartunguhver+Iceland" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div><div class="activity-detail">~10 min de Hraunfossar · A fonte termal mais poderosa da Europa<br><span class="tag tag-tip">✨ Adicionado ao plano!</span></div></div></div>
+          <div class="activity"><span class="activity-icon">🌊</span><div class="activity-content"><div class="activity-name">Goðafoss — "Cachoeira dos Deuses" <a href="https://www.google.com/maps/search/?api=1&query=Godafoss+Iceland" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div><div class="activity-detail">~20 min antes de Akureyri · Uma das mais fotogênicas da Islândia<br><span class="tag tag-tip">✨ Adicionado ao plano!</span></div></div></div>
+          <div class="activity"><span class="activity-icon">🏙️</span><div class="activity-content"><div class="activity-name">Akureyri — chegar ~15h–16h <a href="https://www.google.com/maps/search/?api=1&query=Akureyri+Iceland" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div><div class="activity-detail">Akureyrarkirkja (igreja icônica) · Centro histórico · Porto</div></div></div>
         </div>
       </div>
       <div id="d7-todo" class="inner-panel">
@@ -728,12 +754,12 @@
         <div class="inner-tab" data-panel="d8-todo">✅ To-do</div>
       </div>
       <div id="d8-prog" class="inner-panel active">
-        <div class="hotel-badge"><span class="hotel-icon">🏨</span><div class="hotel-info"><div class="hotel-name">Hérað - Berjaya Iceland Hotels</div><div class="hotel-dates">Egilsstaðir · Check-in ~16h–17h</div></div></div>
+        <div class="hotel-badge"><span class="hotel-icon">🏨</span><div class="hotel-info"><div class="hotel-name">Hérað - Berjaya Iceland Hotels <a href="https://www.google.com/maps/search/?api=1&query=Herad+Berjaya+Iceland+Hotels+Egilsstadir" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div><div class="hotel-dates">Egilsstaðir · Check-in ~16h–17h</div></div></div>
         <div class="drive-summary"><span class="drive-chip">🚗 ~247 km total</span><span class="drive-chip">⏱️ ~4h com paradas</span><span class="drive-chip">🕘 Saída 09h00</span></div>
         <div class="time-block">
           <span class="time-label">Rota do dia — NOVIDADE!</span>
-          <div class="activity"><span class="activity-icon">🌋</span><div class="activity-content"><div class="activity-name">Lago Mývatn — área geotérmica</div><div class="activity-detail">~1h de Akureyri · Pseudo-crateras, Hverir (lama vulcânica), Grjótagjá (caverna com água turquesa)<br><span class="tag tag-tip">✨ Adicionado ao plano! Um dos cenários mais únicos da Islândia</span></div></div></div>
-          <div class="activity"><span class="activity-icon">🦆</span><div class="activity-content"><div class="activity-name">Lagarfljót lake</div><div class="activity-detail">Perto de Egilsstaðir · O "Loch Ness" islandês</div></div></div>
+          <div class="activity"><span class="activity-icon">🌋</span><div class="activity-content"><div class="activity-name">Lago Mývatn — área geotérmica <a href="https://www.google.com/maps/search/?api=1&query=Lake+Myvatn+Iceland" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div><div class="activity-detail">~1h de Akureyri · Pseudo-crateras, Hverir (lama vulcânica), Grjótagjá (caverna com água turquesa)<br><span class="tag tag-tip">✨ Adicionado ao plano! Um dos cenários mais únicos da Islândia</span></div></div></div>
+          <div class="activity"><span class="activity-icon">🦆</span><div class="activity-content"><div class="activity-name">Lagarfljót lake <a href="https://www.google.com/maps/search/?api=1&query=Lagarfjlot+Lake+Iceland" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div><div class="activity-detail">Perto de Egilsstaðir · O "Loch Ness" islandês</div></div></div>
         </div>
         <div class="tip-box">🎃 Halloween numa cidade pequena da Islândia — experiência única!</div>
       </div>
@@ -762,14 +788,14 @@
         <div class="inner-tab" data-panel="d9-todo">✅ To-do</div>
       </div>
       <div id="d9-prog" class="inner-panel active">
-        <div class="hotel-badge"><span class="hotel-icon">🏨</span><div class="hotel-info"><div class="hotel-name">Höfn - Berjaya Iceland Hotels</div><div class="hotel-dates">Höfn · Capital da lagosta!</div></div></div>
+        <div class="hotel-badge"><span class="hotel-icon">🏨</span><div class="hotel-info"><div class="hotel-name">Höfn - Berjaya Iceland Hotels <a href="https://www.google.com/maps/search/?api=1&query=Hofn+Berjaya+Iceland+Hotels" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div><div class="hotel-dates">Höfn · Capital da lagosta!</div></div></div>
         <div class="drive-summary"><span class="drive-chip">🚗 ~185 km + desvio</span><span class="drive-chip">⏱️ ~4h total</span><span class="drive-chip">🕖 Saída 07h30</span></div>
         <div class="warn-box"><strong>⚠️ Estrada para Stuðlagil pode ser intransitável com neve!</strong>Rota 923 é não pavimentada. Verifique road.is antes de sair.</div>
         <div class="time-block">
           <span class="time-label">Rota do dia</span>
-          <div class="activity"><span class="activity-icon">🗿</span><div class="activity-content"><div class="activity-name">Stuðlagil Canyon</div><div class="activity-detail">~30 km ao norte de Egilsstaðir via Rota 923 (não pavimentada) · Colunas de basalto hexagonais + rio turquesa<br><span class="tag tag-tip">Vale muito a pena se estiver acessível!</span></div></div></div>
-          <div class="activity"><span class="activity-icon">🎣</span><div class="activity-content"><div class="activity-name">Djúpivogur</div><div class="activity-detail">Vila de pescadores charmosa · Parada rápida</div></div></div>
-          <div class="activity"><span class="activity-icon">🦞</span><div class="activity-content"><div class="activity-name">Jantar em Höfn — LAGOSTA!</div><div class="activity-detail">Höfn é a capital da lagosta da Islândia — não perca!<br><span class="tag tag-book">Reservar restaurante</span></div></div></div>
+          <div class="activity"><span class="activity-icon">🗿</span><div class="activity-content"><div class="activity-name">Stuðlagil Canyon <a href="https://www.google.com/maps/search/?api=1&query=Studlagil+Canyon+Iceland" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div><div class="activity-detail">~30 km ao norte de Egilsstaðir via Rota 923 (não pavimentada) · Colunas de basalto hexagonais + rio turquesa<br><span class="tag tag-tip">Vale muito a pena se estiver acessível!</span></div></div></div>
+          <div class="activity"><span class="activity-icon">🎣</span><div class="activity-content"><div class="activity-name">Djúpivogur <a href="https://www.google.com/maps/search/?api=1&query=Djupivogur+Iceland" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div><div class="activity-detail">Vila de pescadores charmosa · Parada rápida</div></div></div>
+          <div class="activity"><span class="activity-icon">🦞</span><div class="activity-content"><div class="activity-name">Jantar em Höfn — LAGOSTA! <a href="https://www.google.com/maps/search/?api=1&query=Pakkhus+Restaurant+Hofn+Iceland" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div><div class="activity-detail">Höfn é a capital da lagosta da Islândia — não perca!<br><span class="tag tag-book">Reservar restaurante</span></div></div></div>
         </div>
       </div>
       <div id="d9-todo" class="inner-panel">
@@ -798,15 +824,15 @@
         <div class="inner-tab" data-panel="d10-todo">✅ To-do</div>
       </div>
       <div id="d10-prog" class="inner-panel active">
-        <div class="hotel-badge"><span class="hotel-icon">🏨</span><div class="hotel-info"><div class="hotel-name">Hotel Katla by Keahotels</div><div class="hotel-dates">Vík · Check-in ~15h–16h</div></div></div>
+        <div class="hotel-badge"><span class="hotel-icon">🏨</span><div class="hotel-info"><div class="hotel-name">Hotel Katla by Keahotels <a href="https://www.google.com/maps/search/?api=1&query=Hotel+Katla+Keahotels+Vik+Iceland" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div><div class="hotel-dates">Vík · Check-in ~15h–16h</div></div></div>
         <div class="drive-summary"><span class="drive-chip">🚗 ~270 km total</span><span class="drive-chip">⏱️ ~4h com paradas</span><span class="drive-chip">🕗 Saída 08h00</span></div>
         <div class="time-block">
           <span class="time-label">Rota do dia</span>
-          <div class="activity"><span class="activity-icon">⛰️</span><div class="activity-content"><div class="activity-name">Stokksnes / Vestrahorn</div><div class="activity-detail">~15 min leste de Höfn · Montanha dramática numa praia de areia preta<br><span class="tag tag-tip">✨ Adicionado ao plano!</span></div></div></div>
-          <div class="activity"><span class="activity-icon">🧊</span><div class="activity-content"><div class="activity-name">Jökulsárlón Glacier Lagoon</div><div class="activity-detail">~80 km de Höfn · Icebergs flutuando · Planejar 1-1,5h</div></div></div>
-          <div class="activity"><span class="activity-icon">💎</span><div class="activity-content"><div class="activity-name">Diamond Beach</div><div class="activity-detail">5 min a pé da lagoa · Blocos de gelo na areia preta · Fotos incríveis</div></div></div>
-          <div class="activity"><span class="activity-icon">🏖️</span><div class="activity-content"><div class="activity-name">Reynisfjara + Hálsanefshellir cave</div><div class="activity-detail">Antes do pôr do sol (~17h00) · Praia de areia preta + caverna de basalto</div></div></div>
-          <div class="activity"><span class="activity-icon">⛪</span><div class="activity-content"><div class="activity-name">Igreja de Vík</div><div class="activity-detail">Vista panorâmica do topo da colina</div></div></div>
+          <div class="activity"><span class="activity-icon">⛰️</span><div class="activity-content"><div class="activity-name">Stokksnes / Vestrahorn <a href="https://www.google.com/maps/search/?api=1&query=Stokksnes+Vestrahorn+Iceland" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div><div class="activity-detail">~15 min leste de Höfn · Montanha dramática numa praia de areia preta<br><span class="tag tag-tip">✨ Adicionado ao plano!</span></div></div></div>
+          <div class="activity"><span class="activity-icon">🧊</span><div class="activity-content"><div class="activity-name">Jökulsárlón Glacier Lagoon <a href="https://www.google.com/maps/search/?api=1&query=Jokulsarlon+Glacier+Lagoon+Iceland" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div><div class="activity-detail">~80 km de Höfn · Icebergs flutuando · Planejar 1-1,5h</div></div></div>
+          <div class="activity"><span class="activity-icon">💎</span><div class="activity-content"><div class="activity-name">Diamond Beach <a href="https://www.google.com/maps/search/?api=1&query=Diamond+Beach+Iceland" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div><div class="activity-detail">5 min a pé da lagoa · Blocos de gelo na areia preta · Fotos incríveis</div></div></div>
+          <div class="activity"><span class="activity-icon">🏖️</span><div class="activity-content"><div class="activity-name">Reynisfjara + Hálsanefshellir cave <a href="https://www.google.com/maps/search/?api=1&query=Reynisfjara+Beach+Iceland" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div><div class="activity-detail">Antes do pôr do sol (~17h00) · Praia de areia preta + caverna de basalto</div></div></div>
+          <div class="activity"><span class="activity-icon">⛪</span><div class="activity-content"><div class="activity-name">Igreja de Vík <a href="https://www.google.com/maps/search/?api=1&query=Vik+Church+Iceland" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div><div class="activity-detail">Vista panorâmica do topo da colina</div></div></div>
         </div>
         <div class="warn-box"><strong>⚠️ Reynisfjara — cuidado com as ondas!</strong>Ondas traiçoeiras — nunca virar as costas para o mar.</div>
       </div>
@@ -836,15 +862,15 @@
         <div class="inner-tab" data-panel="d11-todo">✅ To-do</div>
       </div>
       <div id="d11-prog" class="inner-panel active">
-        <div class="hotel-badge"><span class="hotel-icon">🏨</span><div class="hotel-info"><div class="hotel-name">Hotel Lotus</div><div class="hotel-dates">Reykjavik · Última noite na Islândia</div></div></div>
+        <div class="hotel-badge"><span class="hotel-icon">🏨</span><div class="hotel-info"><div class="hotel-name">Hotel Lotus <a href="https://www.google.com/maps/search/?api=1&query=Hotel+Lotus+Reykjavik+Iceland" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div><div class="hotel-dates">Reykjavik · Última noite na Islândia</div></div></div>
         <div class="warn-box"><strong>❄️ RESERVA FIXA: Katla Ice Cave às 10h00</strong>Sair do hotel às 09h30. Ponto de encontro ~15 min de Vík.</div>
         <div class="time-block">
           <span class="time-label">Cronograma do dia</span>
           <div class="activity"><span class="activity-icon">🚗</span><div class="activity-content"><div class="activity-name">09h30 — Sair do hotel</div><div class="activity-detail">15 min até o ponto de encontro do tour</div></div></div>
-          <div class="activity"><span class="activity-icon">❄️</span><div class="activity-content"><div class="activity-name">10h00–12h30 — Katla Ice Cave</div><div class="activity-detail">Tour guiado · ~2-3h de duração<br><span class="tag tag-fixed">Reserva Confirmada!</span></div></div></div>
-          <div class="activity"><span class="activity-icon">🌊</span><div class="activity-content"><div class="activity-name">13h00 — Dyrhólaey</div><div class="activity-detail">Arco de pedra dramático, habitat de papagaio-do-ártico, farol</div></div></div>
-          <div class="activity"><span class="activity-icon">💧</span><div class="activity-content"><div class="activity-name">14h00 — Skógafoss</div><div class="activity-detail">Subir as escadas para o topo da cachoeira (~30 min de Dyrhólaey)</div></div></div>
-          <div class="activity"><span class="activity-icon">💧</span><div class="activity-content"><div class="activity-name">15h00 — Seljalandsfoss</div><div class="activity-detail">Você pode caminhar ATRÁS da cachoeira! (~30 min de Skógafoss)</div></div></div>
+          <div class="activity"><span class="activity-icon">❄️</span><div class="activity-content"><div class="activity-name">10h00–12h30 — Katla Ice Cave <a href="https://www.google.com/maps/search/?api=1&query=Katla+Ice+Cave+Iceland" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div><div class="activity-detail">Tour guiado · ~2-3h de duração<br><span class="tag tag-fixed">Reserva Confirmada!</span></div></div></div>
+          <div class="activity"><span class="activity-icon">🌊</span><div class="activity-content"><div class="activity-name">13h00 — Dyrhólaey <a href="https://www.google.com/maps/search/?api=1&query=Dyrholaey+Iceland" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div><div class="activity-detail">Arco de pedra dramático, habitat de papagaio-do-ártico, farol</div></div></div>
+          <div class="activity"><span class="activity-icon">💧</span><div class="activity-content"><div class="activity-name">14h00 — Skógafoss <a href="https://www.google.com/maps/search/?api=1&query=Skogafoss+Iceland" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div><div class="activity-detail">Subir as escadas para o topo da cachoeira (~30 min de Dyrhólaey)</div></div></div>
+          <div class="activity"><span class="activity-icon">💧</span><div class="activity-content"><div class="activity-name">15h00 — Seljalandsfoss <a href="https://www.google.com/maps/search/?api=1&query=Seljalandsfoss+Iceland" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div><div class="activity-detail">Você pode caminhar ATRÁS da cachoeira! (~30 min de Skógafoss)</div></div></div>
           <div class="activity"><span class="activity-icon">🚗</span><div class="activity-content"><div class="activity-name">16h00 — Seguir para Reykjavik</div><div class="activity-detail">~1h30 de viagem · Chegada ~17h30</div></div></div>
           <div class="activity"><span class="activity-icon">🐱</span><div class="activity-content"><div class="activity-name">Noite — Reykjavik</div><div class="activity-detail">kattakaffihusid (cat café) e/ou Fridheimar · Última noite na Islândia<br><span class="tag tag-book">Reservar com antecedência</span></div></div></div>
         </div>
@@ -878,13 +904,13 @@
       </div>
       <div id="d12-prog" class="inner-panel active">
         <div class="warn-box"><strong>⏰ Sair do Hotel Lotus às 09h30 no máximo!</strong>45 min até KEF + devolução do carro + check-in.</div>
-        <div class="hotel-badge"><span class="hotel-icon">🏨</span><div class="hotel-info"><div class="hotel-name">Park Grand Paddington Court</div><div class="hotel-dates">Check-in: 4 Nov ~16h · 2 noites</div></div></div>
+        <div class="hotel-badge"><span class="hotel-icon">🏨</span><div class="hotel-info"><div class="hotel-name">Park Grand Paddington Court <a href="https://www.google.com/maps/search/?api=1&query=Park+Grand+Paddington+Court+London" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div><div class="hotel-dates">Check-in: 4 Nov ~16h · 2 noites</div></div></div>
         <div class="time-block">
           <span class="time-label">Dia</span>
           <div class="activity"><span class="activity-icon">🚗</span><div class="activity-content"><div class="activity-name">09h30 — Partir para KEF</div><div class="activity-detail">Devolver carro alugado no aeroporto</div></div></div>
           <div class="activity"><span class="activity-icon">✈️</span><div class="activity-content"><div class="activity-name">11h50 — Voo BA801 KEF→LHR</div><div class="activity-detail">Chegada em Londres às 15h00</div></div></div>
           <div class="activity"><span class="activity-icon">🏨</span><div class="activity-content"><div class="activity-name">~16h30 — Check-in Paddington</div><div class="activity-detail">Park Grand Paddington Court · 2 noites</div></div></div>
-          <div class="activity"><span class="activity-icon">🚢</span><div class="activity-content"><div class="activity-name">Little Venice</div><div class="activity-detail">10 min a pé do hotel · Canal charmoso, passeio leve de tarde<br><span class="tag tag-tip">✨ Adicionado ao plano!</span></div></div></div>
+          <div class="activity"><span class="activity-icon">🚢</span><div class="activity-content"><div class="activity-name">Little Venice <a href="https://www.google.com/maps/search/?api=1&query=Little+Venice+London" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div><div class="activity-detail">10 min a pé do hotel · Canal charmoso, passeio leve de tarde<br><span class="tag tag-tip">✨ Adicionado ao plano!</span></div></div></div>
         </div>
       </div>
       <div id="d12-todo" class="inner-panel">
@@ -901,7 +927,7 @@
 <!-- ===================== LONDON LEG 2 ===================== -->
 <div id="london2" class="section">
   <p class="section-label">🇬🇧 Londres — 2ª Etapa (4–6 Nov)</p>
-  <div class="hotel-badge"><span class="hotel-icon">🏨</span><div class="hotel-info"><div class="hotel-name">Park Grand Paddington Court</div><div class="hotel-dates">Check-in: 4 Nov · Check-out: 6 Nov manhã</div></div></div>
+  <div class="hotel-badge"><span class="hotel-icon">🏨</span><div class="hotel-info"><div class="hotel-name">Park Grand Paddington Court <a href="https://www.google.com/maps/search/?api=1&query=Park+Grand+Paddington+Court+London" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div><div class="hotel-dates">Check-in: 4 Nov · Check-out: 6 Nov manhã</div></div></div>
   <div class="tip-box">🚆 A estação de Paddington é a ponto de partida perfeito para Windsor (40 min) e Oxford (1h) — ambas saem daqui!</div>
 
   <!-- DAY 13 -->
@@ -922,17 +948,17 @@
       <div id="d13-prog" class="inner-panel active">
         <div class="time-block">
           <span class="time-label">Opção 1 — Stonehenge + Bath ⭐ Recomendado</span>
-          <div class="activity"><span class="activity-icon">🏛️</span><div class="activity-content"><div class="activity-name">Bath — Roman Baths + cidade</div><div class="activity-detail">~1h30 de trem de Paddington · Arquitetura georgiana, spa romano<br><span class="tag tag-book">Ingresso Roman Baths online</span></div></div></div>
-          <div class="activity"><span class="activity-icon">🪨</span><div class="activity-content"><div class="activity-name">Stonehenge</div><div class="activity-detail">Na volta · Precisa reservar entrada com antecedência<br><span class="tag tag-book">Reservar online — OBRIGATÓRIO</span></div></div></div>
+          <div class="activity"><span class="activity-icon">🏛️</span><div class="activity-content"><div class="activity-name">Bath — Roman Baths + cidade <a href="https://www.google.com/maps/search/?api=1&query=Roman+Baths+Bath+UK" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div><div class="activity-detail">~1h30 de trem de Paddington · Arquitetura georgiana, spa romano<br><span class="tag tag-book">Ingresso Roman Baths online</span></div></div></div>
+          <div class="activity"><span class="activity-icon">🪨</span><div class="activity-content"><div class="activity-name">Stonehenge <a href="https://www.google.com/maps/search/?api=1&query=Stonehenge+Wiltshire+UK" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div><div class="activity-detail">Na volta · Precisa reservar entrada com antecedência<br><span class="tag tag-book">Reservar online — OBRIGATÓRIO</span></div></div></div>
         </div>
         <div class="time-block">
           <span class="time-label">Opção 2 — Windsor Castle</span>
-          <div class="activity"><span class="activity-icon">🏰</span><div class="activity-content"><div class="activity-name">Castelo de Windsor</div><div class="activity-detail">40 min de trem da Paddington Station · Castelo real em uso<br><span class="tag tag-book">Comprar ingressos online</span></div></div></div>
-          <div class="activity"><span class="activity-icon">🌳</span><div class="activity-content"><div class="activity-name">Long Walk + Windsor town</div><div class="activity-detail">Avenida arborizada, centro histórico</div></div></div>
+          <div class="activity"><span class="activity-icon">🏰</span><div class="activity-content"><div class="activity-name">Castelo de Windsor <a href="https://www.google.com/maps/search/?api=1&query=Windsor+Castle+UK" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div><div class="activity-detail">40 min de trem da Paddington Station · Castelo real em uso<br><span class="tag tag-book">Comprar ingressos online</span></div></div></div>
+          <div class="activity"><span class="activity-icon">🌳</span><div class="activity-content"><div class="activity-name">Long Walk + Windsor town <a href="https://www.google.com/maps/search/?api=1&query=Long+Walk+Windsor+UK" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div><div class="activity-detail">Avenida arborizada, centro histórico</div></div></div>
         </div>
         <div class="time-block">
           <span class="time-label">Opção 3 — Oxford</span>
-          <div class="activity"><span class="activity-icon">🎓</span><div class="activity-content"><div class="activity-name">Oxford</div><div class="activity-detail">1h de trem da Paddington Station · Universidade histórica, Bodleian Library, Covered Market<br><span class="tag tag-free">Maioria grátis (exterior)</span></div></div></div>
+          <div class="activity"><span class="activity-icon">🎓</span><div class="activity-content"><div class="activity-name">Oxford <a href="https://www.google.com/maps/search/?api=1&query=Oxford+University+UK" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div><div class="activity-detail">1h de trem da Paddington Station · Universidade histórica, Bodleian Library, Covered Market<br><span class="tag tag-free">Maioria grátis (exterior)</span></div></div></div>
         </div>
       </div>
       <div id="d13-todo" class="inner-panel">
@@ -961,14 +987,17 @@
         <div class="inner-tab" data-panel="d14-todo">✅ To-do</div>
       </div>
       <div id="d14-prog" class="inner-panel active">
+        <div class="tip-box">🎨 Se não conseguiu fazer NHM ou National Gallery nos dias anteriores — este é o dia de recuperação! Ambos estão gratuitos e centrais.</div>
         <div class="time-block">
           <span class="time-label">Manhã</span>
-          <div class="activity"><span class="activity-icon">🏘️</span><div class="activity-content"><div class="activity-name">Chelsea + King's Road</div><div class="activity-detail">Bairro elegante, lojas britânicas, cafés charmosos</div></div></div>
-          <div class="activity"><span class="activity-icon">🖼️</span><div class="activity-content"><div class="activity-name">National Portrait Gallery</div><div class="activity-detail">Grátis · Trafalgar Square · Reaberta após reforma<br><span class="tag tag-free">Grátis</span> <span class="tag tag-tip">✨ Adicionado ao plano!</span></div></div></div>
+          <div class="activity"><span class="activity-icon">🏘️</span><div class="activity-content"><div class="activity-name">Chelsea + King's Road <a href="https://www.google.com/maps/search/?api=1&query=Kings+Road+Chelsea+London" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div><div class="activity-detail">Bairro elegante, lojas britânicas, cafés charmosos</div></div></div>
+          <div class="activity"><span class="activity-icon">🖼️</span><div class="activity-content"><div class="activity-name">National Gallery <a href="https://www.google.com/maps/search/?api=1&query=National+Gallery+London" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div><div class="activity-detail">Trafalgar Square · Uma das maiores coleções de arte do mundo · Backup se não foi no Dia 4<br><span class="tag tag-free">Grátis</span> <span class="tag tag-tip">Backup para o Dia 4</span></div></div></div>
+          <div class="activity"><span class="activity-icon">🖼️</span><div class="activity-content"><div class="activity-name">National Portrait Gallery <a href="https://www.google.com/maps/search/?api=1&query=National+Portrait+Gallery+London" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div><div class="activity-detail">Ao lado da National Gallery · Reaberta após reforma · Alternativa ou complemento<br><span class="tag tag-free">Grátis</span> <span class="tag tag-optional">Opcional</span></div></div></div>
+          <div class="activity"><span class="activity-icon">🦕</span><div class="activity-content"><div class="activity-name">Natural History Museum <a href="https://www.google.com/maps/search/?api=1&query=Natural+History+Museum+London" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div><div class="activity-detail">Backup se não foi no Dia 4 · South Kensington<br><span class="tag tag-free">Grátis</span> <span class="tag tag-tip">Backup para o Dia 4</span></div></div></div>
         </div>
         <div class="time-block">
           <span class="time-label">Tarde</span>
-          <div class="activity"><span class="activity-icon">🌿</span><div class="activity-content"><div class="activity-name">Sky Garden</div><div class="activity-detail">Jardim suspenso com vista 360° · Gratuito mas PRECISA reservar<br><span class="tag tag-book">Reservar online com antecedência (grátis)</span></div></div></div>
+          <div class="activity"><span class="activity-icon">🌿</span><div class="activity-content"><div class="activity-name">Sky Garden <a href="https://www.google.com/maps/search/?api=1&query=Sky+Garden+London" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div><div class="activity-detail">Jardim suspenso com vista 360° · Gratuito mas PRECISA reservar<br><span class="tag tag-book">Reservar online com antecedência (grátis)</span></div></div></div>
           <div class="activity"><span class="activity-icon">🍽️</span><div class="activity-content"><div class="activity-name">Almoço — Borough Market ou Covent Garden</div><div class="activity-detail">Última refeição em Londres!</div></div></div>
         </div>
         <div class="time-block">
@@ -1010,7 +1039,7 @@
     <div class="reserves-header iceland-h">🇮🇸 Islândia — Urgente!</div>
     <div class="reserve-item"><div><div class="reserve-name">🏊 Blue Lagoon</div><div class="reserve-note">ESGOTA SEMANAS ANTES · Reservar para tarde de 28 Out · bluelagoon.com</div></div><span class="tag tag-book">Pago · Urgente!</span></div>
     <div class="reserve-item"><div><div class="reserve-name">❄️ Katla Ice Cave</div><div class="reserve-note">JÁ RESERVADO — 3 Nov às 10h00 ✅</div></div><span class="tag tag-fixed">Confirmado</span></div>
-    <div class="reserve-item"><div><div class="reserve-name">🍅 Restaurante Fridheimar</div><div class="reserve-note">Almoço no Golden Circle (29 Out) · Reserve com antecedência</div></div><span class="tag tag-book">Pago</span></div>
+    <div class="reserve-item"><div><div class="reserve-name">🍅 Restaurante Fridheimar</div><div class="reserve-note">✅ Confirmado · 29 Out 13h00–14h00 · Reserva #9490167</div></div><span class="tag tag-fixed">Confirmado</span></div>
     <div class="reserve-item"><div><div class="reserve-name">🦞 Restaurante em Höfn</div><div class="reserve-note">Jantar lagosta (1 Nov) · Pakkhús ou Hafnarbúðin</div></div><span class="tag tag-book">Pago</span></div>
     <div class="reserve-item"><div><div class="reserve-name">🐱 kattakaffihusid</div><div class="reserve-note">Cat café em Reykjavik · Noite de 3 Nov</div></div><span class="tag tag-book">Reservar</span></div>
   </div>
@@ -1018,6 +1047,268 @@
   <div class="info-box">
     <strong>💡 Dica de reservas</strong>
     Faça todas as reservas assim que possível — Torre de Londres, Sky Garden e Blue Lagoon em especial esgotam com semanas de antecedência, especialmente em outubro/novembro.
+  </div>
+</div>
+
+<!-- ===================== FOOD ===================== -->
+<div id="food" class="section">
+  <p class="section-label">🍽️ Sugestões Gastronômicas</p>
+
+  <!-- LONDON -->
+  <p class="food-section-title">🇬🇧 Londres</p>
+
+  <div class="food-card">
+    <div class="food-card-header">
+      <span class="food-emoji">🐟</span>
+      <div class="food-info">
+        <div class="food-name">Fish & Chips <a href="https://www.google.com/maps/search/?api=1&query=The+Churchill+Arms+Notting+Hill+London" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div>
+        <div class="food-when">Dia 1 (Sáb 24 Out) · Jantar em Notting Hill</div>
+      </div>
+    </div>
+    <div class="food-body">
+      O prato mais britânico que existe. Bacalhau empanado frito com batatas fritas grossas, servido com vinagre de malte e ervilhas. Peça num pub tradicional.<br><br>
+      <strong>Onde:</strong> Qualquer pub em Notting Hill — experimente o <em>The Churchill Arms</em> (famoso pelos vasos de flores) ou <em>The Ladbroke Arms</em>.
+      <div class="food-tags"><span class="food-tag-london">Londres</span><span class="food-tag-must">Imperdível</span></div>
+    </div>
+  </div>
+
+  <div class="food-card">
+    <div class="food-card-header">
+      <span class="food-emoji">🛒</span>
+      <div class="food-info">
+        <div class="food-name">Borough Market <a href="https://www.google.com/maps/search/?api=1&query=Borough+Market+London" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div>
+        <div class="food-when">Dia 2 (Dom 25 Out) · Tarde no South Bank</div>
+      </div>
+    </div>
+    <div class="food-body">
+      O melhor mercado de comida de Londres. Queijos artesanais, ostras frescas, raclette, pães de fermentação natural, carnes assadas, doces artesanais e muito mais. Ótimo para almoço ou lanche da tarde.<br><br>
+      <strong>Destaques:</strong> Bia Mara (fish & chips gourmet), Kappacasein (raclette e grilled cheese), Bao Borough (baos taiwanese).<br>
+      <strong>Horário:</strong> Fecha ~17h aos domingos.
+      <div class="food-tags"><span class="food-tag-london">Londres</span><span class="food-tag-must">Imperdível</span></div>
+    </div>
+  </div>
+
+  <div class="food-card">
+    <div class="food-card-header">
+      <span class="food-emoji">🍛</span>
+      <div class="food-info">
+        <div class="food-name">Brick Lane — Curry Mile <a href="https://www.google.com/maps/search/?api=1&query=Brick+Lane+London" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div>
+        <div class="food-when">Dia 3 (Seg 26 Out) · Tarde em East London</div>
+      </div>
+    </div>
+    <div class="food-body">
+      Brick Lane é o coração da comunidade bangladeshi de Londres e o melhor lugar para curry autêntico e barato. Dezenas de restaurantes competem pela sua atenção — às vezes com barkers na porta.<br><br>
+      <strong>Dica:</strong> Evite os que insistem demais na porta. Prefira os cheios de locais. <em>Aladin</em> e <em>Tayyabs</em> (Whitechapel, 10 min) são clássicos.
+      <div class="food-tags"><span class="food-tag-london">Londres</span></div>
+    </div>
+  </div>
+
+  <div class="food-card">
+    <div class="food-card-header">
+      <span class="food-emoji">🎪</span>
+      <div class="food-info">
+        <div class="food-name">Covent Garden — Almoço <a href="https://www.google.com/maps/search/?api=1&query=Dishoom+Covent+Garden+London" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div>
+        <div class="food-when">Dia 4 (Ter 27 Out) · Meio-dia</div>
+      </div>
+    </div>
+    <div class="food-body">
+      A praça central de Covent Garden tem food stalls, restaurantes e cafés para todos os gostos. Ótimo para um almoço descontraído entre museus.<br><br>
+      <strong>Destaques:</strong> <em>Dishoom Covent Garden</em> (culinária indiana de Bombaim — filas, mas vale), <em>Flat Iron</em> (steaks acessíveis), ou simplesmente os food stalls da Jubilee Market Hall.
+      <div class="food-tags"><span class="food-tag-london">Londres</span><span class="food-tag-book">Dishoom: reservar</span></div>
+    </div>
+  </div>
+
+  <div class="food-card">
+    <div class="food-card-header">
+      <span class="food-emoji">🎸</span>
+      <div class="food-info">
+        <div class="food-name">Camden Market — Comida do Mundo <a href="https://www.google.com/maps/search/?api=1&query=Camden+Market+London" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div>
+        <div class="food-when">Dia 4 (Ter 27 Out) · Noite</div>
+      </div>
+    </div>
+    <div class="food-body">
+      O Camden Market tem um dos melhores food halls de Londres — dezenas de bancas com comida do mundo inteiro: etíope, japonesa, venezuelana, mexicana, grega. Preços acessíveis e ambiente incrível.<br><br>
+      <strong>Onde:</strong> <em>Camden Market Lock</em> e <em>Stables Market</em> — explore os dois.
+      <div class="food-tags"><span class="food-tag-london">Londres</span></div>
+    </div>
+  </div>
+
+  <div class="food-card">
+    <div class="food-card-header">
+      <span class="food-emoji">☕</span>
+      <div class="food-info">
+        <div class="food-name">Afternoon Tea <a href="https://www.google.com/maps/search/?api=1&query=Beas+of+Bloomsbury+London" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div>
+        <div class="food-when">Qualquer tarde em Londres · Experiência clássica</div>
+      </div>
+    </div>
+    <div class="food-body">
+      Uma das experiências mais britânicas: chá com sanduíches de pepino, scones com clotted cream e geléia, e mini-bolos. Pode ser feito em qualquer café ou em lugares mais elegantes.<br><br>
+      <strong>Opções acessíveis:</strong> <em>Bea's of Bloomsbury</em> (perto do British Museum), <em>Fortnum & Mason</em> (Piccadilly — mais caro mas icônico).
+      <div class="food-tags"><span class="food-tag-london">Londres</span><span class="food-tag-book">Reservar nos mais famosos</span></div>
+    </div>
+  </div>
+
+  <div class="food-card">
+    <div class="food-card-header">
+      <span class="food-emoji">🥐</span>
+      <div class="food-info">
+        <div class="food-name">Portobello Road — Café da manhã <a href="https://www.google.com/maps/search/?api=1&query=Portobello+Road+Market+London" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div>
+        <div class="food-when">Dia 1 (Sáb 24 Out) · Manhã de chegada</div>
+      </div>
+    </div>
+    <div class="food-body">
+      Depois do voo longo, um bom café da manhã britânico é o remédio certo. Portobello Road e arredores têm ótimas opções.<br><br>
+      <strong>Full English Breakfast:</strong> ovos, bacon, salsicha, feijão, cogumelos, torrada. O clássico britânico. Experimente em qualquer café da região.<br>
+      <strong>Indicação:</strong> <em>The Grain Store</em> ou qualquer café independente em Notting Hill.
+      <div class="food-tags"><span class="food-tag-london">Londres</span></div>
+    </div>
+  </div>
+
+  <!-- ICELAND -->
+  <p class="food-section-title">🇮🇸 Islândia</p>
+
+  <div class="food-card">
+    <div class="food-card-header">
+      <span class="food-emoji">🏊</span>
+      <div class="food-info">
+        <div class="food-name">Blue Lagoon — Café e Bebidas <a href="https://www.google.com/maps/search/?api=1&query=Blue+Lagoon+Iceland" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div>
+        <div class="food-when">Dia 5 (Qua 28 Out) · Tarde</div>
+      </div>
+    </div>
+    <div class="food-body">
+      Dentro do Blue Lagoon há um bar dentro da própria lagoa — você nada até o bar e pede drinks ou smoothies na água. Uma experiência única.<br><br>
+      <strong>Dica:</strong> O restaurante Lava dentro do Blue Lagoon é caro. Coma antes ou depois. O bar na água é a experiência que vale.
+      <div class="food-tags"><span class="food-tag-iceland">Islândia</span><span class="food-tag-must">Experiência única</span></div>
+    </div>
+  </div>
+
+  <div class="food-card">
+    <div class="food-card-header">
+      <span class="food-emoji">🍅</span>
+      <div class="food-info">
+        <div class="food-name">Fridheimar — Restaurante Estufa de Tomates <a href="https://www.google.com/maps/search/?api=1&query=Fridheimar+Iceland" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div>
+        <div class="food-when">Dia 6 (Qui 29 Out) · 13h00–14h00 · Reserva #9490167 ✅</div>
+      </div>
+    </div>
+    <div class="food-body">
+      Uma fazenda geotérmica que cultiva tomates o ano todo numa estufa aquecida por energia vulcânica. O restaurante fica dentro da estufa — você almoça entre as plantas. Menu limitado mas único: sopa de tomate, hambúrguer de tomate, pão artesanal.<br><br>
+      <strong>Localização:</strong> Entre Geysir e Gullfoss, no Golden Circle.<br>
+      <strong>⚠️ Reserva obrigatória — esgota com semanas de antecedência!</strong>
+      <div class="food-tags"><span class="food-tag-iceland">Islândia</span><span class="food-tag-must">Imperdível</span><span class="food-tag-book">Reservar urgente!</span></div>
+    </div>
+  </div>
+
+  <div class="food-card">
+    <div class="food-card-header">
+      <span class="food-emoji">🐑</span>
+      <div class="food-info">
+        <div class="food-name">Kjötsúpa — Sopa de Cordeiro Islandesa <a href="https://www.google.com/maps/search/?api=1&query=traditional+icelandic+restaurant+Iceland" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div>
+        <div class="food-when">Qualquer dia na Islândia · Especialmente nos dias frios</div>
+      </div>
+    </div>
+    <div class="food-body">
+      O prato de conforto da Islândia: sopa densa de cordeiro com batatas, cenoura, nabo e ervas. Perfeita para aquecer depois de um dia dirigindo no frio. Encontrada em praticamente todo restaurante islandês.<br><br>
+      <strong>Dica:</strong> Peça nos hotéis onde você está hospedado — costumam ser caseiros e generosos.
+      <div class="food-tags"><span class="food-tag-iceland">Islândia</span><span class="food-tag-must">Imperdível</span></div>
+    </div>
+  </div>
+
+  <div class="food-card">
+    <div class="food-card-header">
+      <span class="food-emoji">🦞</span>
+      <div class="food-info">
+        <div class="food-name">Langoustine (Lagosta Islandesa) — Höfn <a href="https://www.google.com/maps/search/?api=1&query=Pakkhus+Restaurant+Hofn+Iceland" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div>
+        <div class="food-when">Dia 9 (Dom 1 Nov) · Jantar em Höfn</div>
+      </div>
+    </div>
+    <div class="food-body">
+      Höfn é a capital mundial da lagosta islandesa (langoustine). Menor que a lagosta brasileira mas extremamente saborosa — grelhada com manteiga e alho. Imperdível.<br><br>
+      <strong>Restaurantes:</strong> <em>Pakkhús</em> (o mais famoso, vista para o porto) ou <em>Hafnarbúðin</em>.<br>
+      <strong>⚠️ Reserve com antecedência — lotam nos poucos restaurantes disponíveis.</strong>
+      <div class="food-tags"><span class="food-tag-iceland">Islândia</span><span class="food-tag-must">Imperdível</span><span class="food-tag-book">Reservar!</span></div>
+    </div>
+  </div>
+
+  <div class="food-card">
+    <div class="food-card-header">
+      <span class="food-emoji">🌭</span>
+      <div class="food-info">
+        <div class="food-name">Hot Dog Islandês — Bæjarins Beztu <a href="https://www.google.com/maps/search/?api=1&query=Bajarins+Beztu+Pylsur+Reykjavik" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div>
+        <div class="food-when">Dia 5 ou 11 · Reykjavik</div>
+      </div>
+    </div>
+    <div class="food-body">
+      A barraca de hot dog mais famosa da Islândia (e possivelmente do mundo). Aberta desde 1937, já foi visitada por Bill Clinton. O hot dog islandês é feito de cordeiro, porco e vitela, servido com mostarda doce, ketchup, remoulade e cebola frita.<br><br>
+      <strong>Onde:</strong> <em>Bæjarins Beztu Pylsur</em> — barraca vermelha perto do porto de Reykjavik. Fila garantida mas anda rápido.<br>
+      <strong>Pedido clássico:</strong> "Eina með öllu" (um com tudo).
+      <div class="food-tags"><span class="food-tag-iceland">Islândia</span><span class="food-tag-must">Ícone cultural</span></div>
+    </div>
+  </div>
+
+  <div class="food-card">
+    <div class="food-card-header">
+      <span class="food-emoji">🐟</span>
+      <div class="food-info">
+        <div class="food-name">Plokkfiskur — Gratinado de Peixe <a href="https://www.google.com/maps/search/?api=1&query=Cafe+Loki+Reykjavik" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div>
+        <div class="food-when">Qualquer dia na Islândia</div>
+      </div>
+    </div>
+    <div class="food-body">
+      Prato tradicional islandês: bacalhau ou arinca desfiada com batatas, cebola e molho bechamel, servido com pão de centeio escuro. Reconfortante e saboroso.<br><br>
+      <strong>Onde encontrar:</strong> <em>Café Loki</em> (em frente à Hallgrímskirkja, Reykjavik) — especializado em comida tradicional islandesa. Ótimo para a noite de chegada.
+      <div class="food-tags"><span class="food-tag-iceland">Islândia</span></div>
+    </div>
+  </div>
+
+  <div class="food-card">
+    <div class="food-card-header">
+      <span class="food-emoji">🐱</span>
+      <div class="food-info">
+        <div class="food-name">Kattakaffihúsið — Cat Café <a href="https://www.google.com/maps/search/?api=1&query=Kattakaffihusid+Reykjavik" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div>
+        <div class="food-when">Dia 11 (Ter 3 Nov) · Noite em Reykjavik</div>
+      </div>
+    </div>
+    <div class="food-body">
+      Café temático com gatos onde você pode tomar café, chá e comer bolos caseiros enquanto os gatos passeiam ao redor. Uma experiência diferente para a última noite na Islândia.<br><br>
+      <strong>⚠️ Reserve com antecedência — as vagas são limitadas.</strong>
+      <div class="food-tags"><span class="food-tag-iceland">Islândia</span><span class="food-tag-book">Reservar!</span><span class="food-tag-must">Experiência única</span></div>
+    </div>
+  </div>
+
+  <div class="food-card">
+    <div class="food-card-header">
+      <span class="food-emoji">🍦</span>
+      <div class="food-info">
+        <div class="food-name">Skyr — Iogurte Islandês <a href="https://www.google.com/maps/search/?api=1&query=Bonus+Supermarket+Reykjavik+Iceland" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div>
+        <div class="food-when">Café da manhã / lanche · Qualquer dia na Islândia</div>
+      </div>
+    </div>
+    <div class="food-body">
+      O Skyr é um laticínio islandês milenar — mais denso que iogurte grego, com alto teor proteico e baixo em gordura. Serve como café da manhã, sobremesa ou lanche. Disponível em supermercados (Bonus, Krónan) por preço acessível.<br><br>
+      <strong>Sabores clássicos:</strong> natural com mel, blueberry, baunilha.
+      <div class="food-tags"><span class="food-tag-iceland">Islândia</span></div>
+    </div>
+  </div>
+
+  <div class="food-card">
+    <div class="food-card-header">
+      <span class="food-emoji">🐳</span>
+      <div class="food-info">
+        <div class="food-name">Minke Whale — Para os Aventureiros <a href="https://www.google.com/maps/search/?api=1&query=Thrir+Frakkar+Reykjavik" target="_blank" style="text-decoration:none;font-size:12px;vertical-align:middle" title="Abrir no Google Maps">🗺️</a></div>
+        <div class="food-when">Reykjavik ou Akureyri</div>
+      </div>
+    </div>
+    <div class="food-body">
+      A carne de baleia minke é servida em alguns restaurantes islandeses — textura próxima de atum, sabor forte e marcante. Uma experiência divisiva mas autenticamente islandesa.<br><br>
+      <strong>Onde:</strong> <em>Þrír Frakkar</em> (Reykjavik) — restaurante tradicional islandês que serve baleia e outros frutos do mar.<br>
+      <strong>Nota:</strong> A caça à baleia é controversa — fica a critério de cada um.
+      <div class="food-tags"><span class="food-tag-iceland">Islândia</span><span class="food-tag-book">Reservar</span></div>
+    </div>
+  </div>
+
+  <div class="info-box" style="margin-top:8px">
+    <strong>💡 Dica de economia na Islândia</strong>
+    A Islândia é cara. Supermercados <strong>Bonus</strong> (logo do porquinho) e <strong>Krónan</strong> têm skyr, pão, frutas, frios e bebidas muito mais baratos que restaurantes. Faça compras para lanches e café da manhã sempre que passar numa cidade maior.
   </div>
 </div>
 
@@ -1066,7 +1357,7 @@
 document.addEventListener('DOMContentLoaded', function() {
 
   // ── Section tabs ──
-  var sectionIds = ['overview','london1','iceland','london2','reserves','tips'];
+  var sectionIds = ['overview','london1','iceland','london2','reserves','food','tips'];
 
   document.querySelectorAll('.tab-btn').forEach(function(btn, i) {
     btn.addEventListener('click', function() {
